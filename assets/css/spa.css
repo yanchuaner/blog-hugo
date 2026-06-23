@@ -52,13 +52,10 @@
 }
 
 /* --- 全局 --- */
-html {
-  scroll-behavior: smooth;
-  background: var(--spa-bg);
-}
+html { scroll-behavior: smooth; background: var(--spa-bg); min-height: 100%; }
 
-body.list { background: var(--spa-bg) !important; }
-.main { background: var(--spa-bg); min-height: 100vh; }
+body.list { background: var(--spa-bg) !important; min-height: 100vh; }
+.main { background: var(--spa-bg); min-height: 100vh; width: 100%; }
 
 /* 统一 PaperMod Header */
 .header {
@@ -529,10 +526,7 @@ body.list { background: var(--spa-bg) !important; }
 }
 
 /* ===== GUESTBOOK ===== */
-.spa-section#guestbook {
-  max-width: 100% !important;
-  padding-left: 1rem; padding-right: 1rem;
-}
+.spa-section#guestbook { max-width: 100%; padding-left: 1rem; padding-right: 1rem; }
 
 .spa-guestbook {
   margin-top: 0.5rem; width: 100%;
@@ -562,9 +556,7 @@ giscus-widget { display: block; width: 100% !important; max-width: 100% !importa
   box-shadow: var(--spa-shadow-sm);
 }
 
-body.list .main:has(.spa-guestbook-wrapper) {
-  max-width: 100% !important; padding-left: 0.5rem; padding-right: 0.5rem;
-}
+body.list .main:has(.spa-guestbook-wrapper) { max-width: 100% !important; width: 100% !important; padding: 0 1rem; }
 
 body.list .main:has(.spa-guestbook-wrapper) .post-single,
 body.list .main:has(.spa-guestbook-wrapper) .post-content,
