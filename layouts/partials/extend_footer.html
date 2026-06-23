@@ -1,4 +1,4 @@
-{{- if .IsHome }}
+{{- if or .IsHome (eq .Layout "guestbook") }}
 {{- $script := resources.Get "js/spa.js" | minify | fingerprint }}
 <script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}" defer></script>
 {{- end }}

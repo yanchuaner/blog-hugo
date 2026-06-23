@@ -1,0 +1,54 @@
+# 项目数据 — 首页展示 featured: true 的项目
+- name: "贪吃蛇游戏"
+  description: "经典贪吃蛇游戏，C++ 实现，支持多种难度模式。面向对象设计，SDL2 图形渲染。"
+  tech: ["C++", "SDL2", "CMake"]
+  github: "https://github.com/yanchuaner"
+  demo: ""
+  status: "已完成"
+  image: ""
+  featured: true
+
+- name: "鸿蒙生态应用"
+  description: "基于 HarmonyOS + ArkTS 的应用开发学习项目，探索鸿蒙生态软件开发。"
+  tech: ["HarmonyOS", "ArkTS"]
+  github: "https://github.com/yanchuaner"
+  demo: ""
+  status: "进行中"
+  image: ""
+  featured: true
+
+- name: "个人博客"
+  description: "Hugo + PaperMod 静态博客，Cloudflare Pages 部署。自定义 SPA 首页，Giscus 评论系统集成。"
+  tech: ["Hugo", "PaperMod", "Cloudflare", "Giscus"]
+  github: "https://github.com/yanchuaner/blog-hugo"
+  demo: "https://blog.codequest.com.cn"
+  status: "已完成"
+  image: ""
+  featured: true
+
+- name: "数字时钟（FPGA）"
+  description: "基于 Vivado 的 FPGA 数字时钟项目，已完成综合/实现/比特流生成。"
+  tech: ["Verilog HDL", "Vivado", "FPGA"]
+  github: "https://github.com/yanchuaner"
+  demo: ""
+  status: "已完成"
+  image: ""
+  featured: true
+
+- name: "3指令 CPU"
+  description: "基于 LoongArch 体系结构的简化 CPU，支持 ADD.W / SUB.W / ADDI.W 指令。"
+  tech: ["Verilog HDL", "LoongArch"]
+  github: "https://github.com/yanchuaner"
+  demo: ""
+  status: "已完成"
+  image: ""
+  featured: false
+
+- name: "AI 网文创作框架"
+  description: "AI 辅助长篇小说创作框架，110+ 章规划，RAG 向量检索 + 多 Agent 流水线。"
+  tech: ["Python", "DeepSeek API", "LangChain", "RAG"]
+  github: "https://github.com/yanchuaner"
+  demo: ""
+  status: "进行中"
+  image: ""
+  featured: true

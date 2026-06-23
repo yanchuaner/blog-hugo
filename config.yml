@@ -1,6 +1,5 @@
-# 起始 URL
 baseURL: 'https://blog.codequest.com.cn'
-title: '黄湘林的个人博客'
+title: '黄湘林 | 信息安全 · AI · 系统开发'
 pagination:
   pagerSize: 5
 theme: PaperMod
@@ -17,11 +16,14 @@ googleAnalytics: ''
 minify:
   disableXML: true
   minifyOutput: true
+
 params:
   env: production
-  title: '黄湘林的个人博客'
-  description: '记录算法、AI 实践与项目成长。'
-  keywords: ['算法', 'ACM', 'AI', '鸿蒙', 'C++']
+  title: '黄湘林 | 信息安全 · AI · 系统开发'
+  description: >
+    华南理工大学计算机专业学生，ACM集训队成员。专注信息安全（二进制安全/AI安全）、
+    系统底层开发与AI应用实践。博客记录算法竞赛、项目复盘与技术思考——项目驱动、实战检验、持续迭代。
+  keywords: ['信息安全', '二进制安全', 'AI安全', 'ACM', '算法', '鸿蒙', 'C++', '系统开发', 'LangChain', 'DeepSeek']
   author: '黄湘林'
   DateFormat: '2006-01-02'
   defaultTheme: auto
@@ -48,27 +50,16 @@ params:
     apple_touch_icon: ''
     safari_pinned_tab: ''
   label:
-    text: 'HXL''s Blog'
+    text: '黄湘林'
     icon: ''
     iconHeight: 35
   profileMode:
     enabled: false
-  homeInfoParams_disabled:
-    Title: "Hi there \U0001F44B"
-    Content: >
-      欢迎来到我的博客。这里记录算法学习、AI 实践与项目成长。
   socialIcons:
     - name: github
       url: 'https://github.com/yanchuaner'
     - name: rss
       url: 'index.xml'
-  analytics:
-    google:
-      SiteVerificationTag: ''
-    bing:
-      SiteVerificationTag: ''
-    yandex:
-      SiteVerificationTag: ''
   cover:
     hidden: false
     hiddenInList: false
@@ -85,40 +76,31 @@ params:
     threshold: 0.4
     minMatchCharLength: 0
     keys: ['title', 'permalink', 'summary', 'content']
+
 menu:
   main:
-    - identifier: '首页'
+    - identifier: 'home'
       name: '首页'
       url: /
       weight: 1
-    - identifier: archives
-      name: '归档'
-      url: /archives/
+    - identifier: 'posts'
+      name: '文章'
+      url: /posts/
       weight: 2
-    - identifier: '分类'
-      name: '分类'
-      url: /categories/
-      weight: 10
-    - identifier: '标签'
-      name: '标签'
-      url: /tags/
-      weight: 20
-    - identifier: '关于'
-      name: '关于'
-      url: /about/
-      weight: 25
-    - identifier: '项目'
+    - identifier: 'projects'
       name: '项目'
-      url: /about/#projects
-      weight: 30
-    - identifier: '留言板'
-      name: '留言板'
-      url: /guestbook/
-      weight: 35
+      url: /#projects
+      weight: 3
+    - identifier: 'about'
+      name: '关于'
+      url: /#about
+      weight: 4
+
 pygmentsUseClasses: true
 markup:
   highlight:
     noClasses: false
+
 privacy:
   vimeo:
     disabled: true
@@ -129,6 +111,3 @@ privacy:
   youtube:
     disabled: true
     privacyEnhanced: true
-
-
-

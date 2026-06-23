@@ -1,86 +1,177 @@
-{{- /* Homepage SPA template */ -}}
+{{- /* Homepage v2.0 — Developer Portfolio + Tech Blog */ -}}
 {{- define "main" }}
 
+<!-- ===== HERO ===== -->
 <section id="hero" class="spa-hero">
   <canvas id="particles"></canvas>
-  <div class="spa-hero-content">
-    <div class="spa-avatar">
-      <svg viewBox="0 0 100 100" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="50" cy="38" r="18"/>
-        <path d="M30 75c0-11 9-22 20-22s20 11 20 22"/>
-      </svg>
+  <div class="spa-hero-grid">
+    <div class="spa-hero-left">
+      <div class="spa-hero-badge">
+        <span class="dot"></span>
+        Building in Public
+      </div>
+      <h1 class="spa-hero-name">黄湘林</h1>
+      <p class="spa-hero-role">信息安全方向开发者 · ACM 集训队成员 · AI 应用实践者</p>
+      <p class="spa-hero-bio">
+        华南理工大学计算机专业学生。专注于信息安全、系统开发与 AI 应用实践。项目驱动、实战检验、持续迭代。
+      </p>
+      <div class="spa-hero-actions">
+        <a href="#projects" class="spa-btn spa-btn-primary">查看项目</a>
+        <a href="#posts" class="spa-btn spa-btn-secondary">阅读文章</a>
+        <a href="https://github.com/yanchuaner" class="spa-btn spa-btn-ghost" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <div class="spa-hero-tags">
+        <span>Security</span>
+        <span>AI</span>
+        <span>ACM</span>
+        <span>Open Source</span>
+      </div>
     </div>
-    <h1 class="spa-title">黄湘林</h1>
-    <p class="spa-subtitle">信息安全 · AI 安全 · 系统底层 · 鸿蒙生态</p>
-    <div class="spa-status">
-      <span class="status-dot"></span>
-      <span>项目驱动 · 实战检验 · 持续迭代</span>
+    <div class="spa-hero-right">
+      <div class="spa-avatar-wrapper">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="50" cy="38" r="18"/>
+          <path d="M30 75c0-11 9-22 20-22s20 11 20 22"/>
+        </svg>
+      </div>
     </div>
-    <nav class="spa-nav">
-      <a href="#hero" class="active">首页</a>
-      <a href="#about">关于</a>
-      <a href="#projects">项目</a>
-      <a href="#posts">文章</a>
-      <a href="#guestbook">留言</a>
-    </nav>
   </div>
 </section>
 
-<section id="about" class="spa-section">
+<!-- ===== SKILLS ===== -->
+<section id="skills" class="spa-section">
   <div class="spa-section-header">
-    <span class="section-label">About</span>
-    <h2>关于我</h2>
+    <span class="section-label">Skills</span>
+    <h2>技术能力</h2>
   </div>
-  <div class="spa-about-content">
-    <p>华南理工大学计算机科学与技术专业（2025级），ACM 集训队成员，入党积极分子。</p>
-    <p>信息安全方向（二进制安全 / AI安全）。信奉「项目驱动、实战检验、持续迭代」。</p>
-    <div class="spa-tags">
-      <span>C++</span><span>算法</span><span>Python</span><span>安全</span>
-      <span>Next.js</span><span>React</span><span>鸿蒙</span><span>DeepSeek</span>
+  <div class="spa-skills-grid">
+    <div class="spa-skill-category">
+      <div class="spa-skill-cat-name">🛡️ Security</div>
+      <div class="spa-skill-tags">
+        <span class="spa-skill-tag">Binary Security</span>
+        <span class="spa-skill-tag">Reverse Engineering</span>
+        <span class="spa-skill-tag">CTF</span>
+        <span class="spa-skill-tag">SAST</span>
+        <span class="spa-skill-tag">Fuzzing</span>
+      </div>
+    </div>
+    <div class="spa-skill-category">
+      <div class="spa-skill-cat-name">🤖 AI</div>
+      <div class="spa-skill-tags">
+        <span class="spa-skill-tag">LangChain</span>
+        <span class="spa-skill-tag">RAG</span>
+        <span class="spa-skill-tag">Agent</span>
+        <span class="spa-skill-tag">DeepSeek</span>
+        <span class="spa-skill-tag">Prompt Engineering</span>
+      </div>
+    </div>
+    <div class="spa-skill-category">
+      <div class="spa-skill-cat-name">⚙️ System</div>
+      <div class="spa-skill-tags">
+        <span class="spa-skill-tag">C++</span>
+        <span class="spa-skill-tag">Linux</span>
+        <span class="spa-skill-tag">Qt</span>
+        <span class="spa-skill-tag">LoongArch</span>
+        <span class="spa-skill-tag">CMake</span>
+      </div>
+    </div>
+    <div class="spa-skill-category">
+      <div class="spa-skill-cat-name">🔧 Embedded</div>
+      <div class="spa-skill-tags">
+        <span class="spa-skill-tag">Verilog</span>
+        <span class="spa-skill-tag">FPGA</span>
+        <span class="spa-skill-tag">Vivado</span>
+        <span class="spa-skill-tag">HarmonyOS</span>
+        <span class="spa-skill-tag">ArkTS</span>
+      </div>
+    </div>
+    <div class="spa-skill-category">
+      <div class="spa-skill-cat-name">☁️ DevTools</div>
+      <div class="spa-skill-tags">
+        <span class="spa-skill-tag">Git</span>
+        <span class="spa-skill-tag">Docker</span>
+        <span class="spa-skill-tag">Cloudflare</span>
+        <span class="spa-skill-tag">Hugo</span>
+        <span class="spa-skill-tag">Next.js</span>
+      </div>
+    </div>
+    <div class="spa-skill-category">
+      <div class="spa-skill-cat-name">📐 Algorithms</div>
+      <div class="spa-skill-tags">
+        <span class="spa-skill-tag">DP</span>
+        <span class="spa-skill-tag">Graph Theory</span>
+        <span class="spa-skill-tag">String Matching</span>
+        <span class="spa-skill-tag">Codeforces</span>
+        <span class="spa-skill-tag">ACM Training</span>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- ===== PROJECTS ===== -->
 <section id="projects" class="spa-section">
   <div class="spa-section-header">
     <span class="section-label">Projects</span>
-    <h2>项目展示</h2>
+    <h2>精选项目</h2>
   </div>
   <div class="spa-projects-grid">
-    <div class="spa-card">
-      <h3>🐍 贪吃蛇游戏</h3>
-      <p>经典贪吃蛇，C++ 实现，多种难度模式</p>
-      <span class="spa-card-tag">C++</span>
+    {{- $projects := index site.Data "projects" -}}
+    {{- range where $projects "featured" true }}
+    <div class="spa-project-card">
+      <div class="spa-project-image">
+        {{- if .image }}
+        <img src="{{ .image }}" alt="{{ .name }}" loading="lazy">
+        {{- else }}
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="12" y2="17"/></svg>
+        {{- end }}
+      </div>
+      <div class="spa-project-body">
+        <div class="spa-project-header">
+          <h3 class="spa-project-name">{{ .name }}</h3>
+          <span class="spa-project-status {{ if eq .status "已完成" }}done{{ else if eq .status "进行中" }}wip{{ else }}plan{{ end }}">{{ .status }}</span>
+        </div>
+        <p class="spa-project-desc">{{ .description }}</p>
+        <div class="spa-project-tech">
+          {{- range .tech }}
+          <span>{{ . }}</span>
+          {{- end }}
+        </div>
+        <div class="spa-project-links">
+          {{- if .github }}
+          <a href="{{ .github }}" class="spa-project-link" target="_blank" rel="noopener">GitHub</a>
+          {{- end }}
+          {{- if .demo }}
+          <a href="{{ .demo }}" class="spa-project-link ghost" target="_blank" rel="noopener">Demo →</a>
+          {{- end }}
+        </div>
+      </div>
     </div>
-    <div class="spa-card">
-      <h3>🌐 鸿蒙生态应用</h3>
-      <p>鸿蒙生态软件开发学习项目</p>
-      <span class="spa-card-tag">HarmonyOS · ArkTS</span>
-    </div>
-    <div class="spa-card">
-      <h3>📝 个人网站</h3>
-      <p>Hugo + PaperMod 静态博客，记录学习历程</p>
-      <span class="spa-card-tag">Hugo · PaperMod</span>
-    </div>
+    {{- end }}
   </div>
 </section>
 
+<!-- ===== POSTS ===== -->
 <section id="posts" class="spa-section">
   <div class="spa-section-header">
-    <span class="section-label">Blog</span>
+    <span class="section-label">Writing</span>
     <h2>最新文章</h2>
     <a href="/posts/" class="spa-view-all">查看全部 →</a>
   </div>
   <div class="spa-posts-list">
-    {{- $posts := first 5 (where site.RegularPages "Type" "in" site.Params.mainSections) }}
+    {{- $posts := first 4 (where site.RegularPages "Type" "in" site.Params.mainSections) }}
     {{- if $posts }}
       {{- range $posts }}
       <article class="spa-post-entry">
-        <time>{{ .Date.Format "2006-01-02" }}</time>
-        <div>
+        <div class="spa-post-meta">
+          <time>{{ .Date.Format "2006-01-02" }}</time>
+          {{- if .ReadingTime }}
+          <span class="reading-time">{{ .ReadingTime }} min read</span>
+          {{- end }}
+        </div>
+        <div class="spa-post-body">
           <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
           {{- with .Summary }}
-          <p>{{ . | plainify | truncate 100 }}</p>
+          <p>{{ . | plainify | truncate 120 }}</p>
           {{- end }}
         </div>
       </article>
@@ -91,6 +182,38 @@
   </div>
 </section>
 
+<!-- ===== ABOUT ===== -->
+<section id="about" class="spa-section">
+  <div class="spa-section-header">
+    <span class="section-label">About</span>
+    <h2>关于我</h2>
+  </div>
+  <div class="spa-about-grid">
+    <div class="spa-about-card">
+      <h3>简介</h3>
+      <p>华南理工大学计算机科学与技术专业（2025级），ACM 集训队成员。信息安全方向（二进制安全 / AI 安全）学习者。信奉「项目驱动、实战检验、持续迭代」——技术的世界让我找到了表达的方式。</p>
+    </div>
+    <div class="spa-about-card">
+      <h3>成长轨迹</h3>
+      <div class="spa-timeline">
+        <div class="spa-timeline-item">
+          <span class="spa-timeline-year">2024</span>
+          <span class="spa-timeline-text">高考 645 分，物化生选科</span>
+        </div>
+        <div class="spa-timeline-item">
+          <span class="spa-timeline-year">2025</span>
+          <span class="spa-timeline-text">进入华南理工大学 · 加入 ACM 集训队 · 开始信息安全学习</span>
+        </div>
+        <div class="spa-timeline-item">
+          <span class="spa-timeline-year">2026</span>
+          <span class="spa-timeline-text">AI 项目开发 · FPGA 数字时钟 · 个人博客上线 · 开源贡献起步</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GUESTBOOK ===== -->
 <section id="guestbook" class="spa-section">
   <div class="spa-section-header">
     <span class="section-label">Guestbook</span>
@@ -119,12 +242,13 @@
   </div>
 </section>
 
+<!-- ===== FOOTER ===== -->
 <footer class="spa-footer">
-  <p>© {{ now.Format "2006" }} 黄湘林 · Powered by Hugo &amp; PaperMod</p>
+  <p>© {{ now.Format "2006" }} 黄湘林 · 项目驱动 · 实战检验 · 持续迭代</p>
   <div class="spa-footer-links">
     <a href="/posts/">文章</a>
-    <a href="/about/">更多关于</a>
-    <a href="/tags/">标签</a>
+    <a href="/about/">完整简历</a>
+    <a href="https://github.com/yanchuaner" target="_blank" rel="noopener">GitHub</a>
     <a href="/index.xml">RSS</a>
   </div>
 </footer>
