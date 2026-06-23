@@ -420,9 +420,9 @@ body.list {
 
 /* --- Guestbook --- */
 
-/* 首页留言区：放宽宽度 */
+/* 首页留言区：放宽宽度，全宽布局 */
 .spa-section#guestbook {
-  max-width: 860px;
+  max-width: min(900px, 96vw);
 }
 
 .spa-guestbook {
@@ -448,10 +448,11 @@ body.list {
   margin-top: 0;
 }
 
-/* 独立留言板页面 */
+/* 独立留言板页面：彻底突破 PaperMod 约束 */
 .spa-guestbook-wrapper {
-  max-width: 860px;
+  max-width: min(900px, 96vw);
   margin: 0 auto;
+  width: 100%;
 }
 
 .spa-guestbook-wrapper .spa-guestbook-intro {
@@ -467,9 +468,21 @@ body.list {
   box-shadow: var(--spa-shadow-sm);
 }
 
-/* 放宽独立留言板页面的 main 容器 */
-body:not(.list) .main:has(.spa-guestbook-wrapper) {
-  max-width: calc(860px + var(--gap) * 2);
+/* 覆盖 PaperMod 在留言板页的约束 */
+body.list .main:has(.spa-guestbook-wrapper) {
+  max-width: min(950px, 98vw) !important;
+}
+
+body.list .main:has(.spa-guestbook-wrapper) .post-single {
+  max-width: 100%;
+}
+
+body.list .main:has(.spa-guestbook-wrapper) .post-content {
+  max-width: 100%;
+}
+
+body.list .main:has(.spa-guestbook-wrapper) .post-header {
+  max-width: min(900px, 96vw);
 }
 
 /* --- Footer --- */

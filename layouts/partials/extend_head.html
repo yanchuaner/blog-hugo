@@ -15,7 +15,7 @@
   body { font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif; }
   code, pre, kbd, samp { font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace; }
 </style>
-{{- if .IsHome }}
+{{- if or .IsHome (eq .Layout "guestbook") }}
 {{- $style := resources.Get "css/spa.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}">
 {{- end }}
