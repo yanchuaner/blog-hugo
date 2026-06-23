@@ -1,5 +1,5 @@
 # 起始 URL
-baseURL: 'https://blog.yanchuaner.cn'
+baseURL: 'https://codequest.com.cn'
 title: '黄湘林的个人博客'
 pagination:
   pagerSize: 5
@@ -125,3 +125,4 @@ privacy:
   youtube:
     disabled: true
     privacyEnhanced: true
+
