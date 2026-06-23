@@ -41,14 +41,26 @@
   --spa-gradient: linear-gradient(135deg, #60a5fa, #a78bfa);
 }
 
-/* --- 全局 --- */
-html { scroll-behavior: smooth; }
+/* --- 全局背景 --- */
+html {
+  scroll-behavior: smooth;
+  background: var(--spa-bg);
+}
+
+body.list {
+  background: var(--spa-bg) !important;
+}
+
+.main {
+  background: var(--spa-bg);
+  min-height: 100vh;
+}
 
 /* 粒子背景 */
 #particles {
   position: fixed;
   top: 0; left: 0;
-  width: 100%; height: 100%;
+  width: 100vw; height: 100vh;
   z-index: 0;
   pointer-events: none;
 }
@@ -56,6 +68,7 @@ html { scroll-behavior: smooth; }
 /* --- Hero 区域 --- */
 .spa-hero {
   position: relative;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -63,6 +76,7 @@ html { scroll-behavior: smooth; }
   text-align: center;
   padding: 6rem 2rem;
   background: var(--spa-bg);
+  box-sizing: border-box;
 }
 
 .spa-hero::before {
@@ -70,7 +84,7 @@ html { scroll-behavior: smooth; }
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 600px; height: 600px;
+  width: min(600px, 80vw); height: min(600px, 80vw);
   border-radius: 50%;
   background: radial-gradient(circle, var(--spa-accent-soft) 0%, transparent 70%);
   pointer-events: none;
@@ -80,6 +94,7 @@ html { scroll-behavior: smooth; }
   position: relative;
   z-index: 1;
   max-width: 640px;
+  width: 100%;
   animation: fadeUp 0.8s ease-out;
 }
 
@@ -112,7 +127,7 @@ html { scroll-behavior: smooth; }
 }
 
 .spa-title {
-  font-size: 3rem;
+  font-size: clamp(1.85rem, 5vw, 3rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.15;
@@ -125,7 +140,7 @@ html { scroll-behavior: smooth; }
 }
 
 .spa-subtitle {
-  font-size: 1.125rem;
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
   color: var(--spa-text-secondary);
   margin-bottom: 1.25rem;
   font-weight: 400;
@@ -198,9 +213,11 @@ html { scroll-behavior: smooth; }
 .spa-section {
   position: relative;
   z-index: 1;
+  width: 100%;
   max-width: 720px;
   margin: 0 auto;
   padding: 6rem 2rem;
+  box-sizing: border-box;
 }
 
 .spa-section-header {
@@ -221,7 +238,7 @@ html { scroll-behavior: smooth; }
 }
 
 .spa-section-header h2 {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--spa-text);
@@ -250,6 +267,7 @@ html { scroll-behavior: smooth; }
   border-radius: var(--spa-radius-lg);
   padding: 2rem;
   box-shadow: var(--spa-shadow);
+  box-sizing: border-box;
 }
 
 .spa-about-content p {
@@ -287,7 +305,7 @@ html { scroll-behavior: smooth; }
 .spa-projects-grid {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(210px, 100%), 1fr));
 }
 
 .spa-card {
@@ -298,6 +316,7 @@ html { scroll-behavior: smooth; }
   transition: all var(--spa-transition);
   box-shadow: var(--spa-shadow-sm);
   cursor: default;
+  box-sizing: border-box;
 }
 
 .spa-card:hover {
@@ -425,17 +444,20 @@ html { scroll-behavior: smooth; }
 .spa-footer {
   position: relative;
   z-index: 1;
+  width: 100%;
   text-align: center;
   padding: 3rem 2rem 2rem;
   border-top: 1px solid var(--spa-border);
   color: var(--spa-text-muted);
   font-size: 0.85rem;
+  box-sizing: border-box;
 }
 
 .spa-footer-links {
   display: flex;
   gap: 2rem;
   justify-content: center;
+  flex-wrap: wrap;
   margin-top: 0.75rem;
 }
 
@@ -465,22 +487,14 @@ html { scroll-behavior: smooth; }
 /* --- 响应式 --- */
 @media (max-width: 768px) {
   .spa-hero { padding: 4rem 1.25rem; min-height: 90vh; }
-  .spa-hero::before { width: 300px; height: 300px; }
-  .spa-title { font-size: 2.25rem; }
-  .spa-subtitle { font-size: 1rem; }
-  .spa-nav a { padding: 0.4rem 0.9rem; font-size: 0.8rem; }
-  .spa-nav { gap: 0; }
+  .spa-hero::before { width: min(300px, 80vw); height: min(300px, 80vw); }
   .spa-section { padding: 4rem 1.25rem; }
-  .spa-section-header h2 { font-size: 1.65rem; }
   .spa-post-entry { flex-direction: column; gap: 0.25rem; padding: 1rem 1.25rem; }
   .spa-post-entry time { min-width: auto; }
-  .spa-projects-grid { grid-template-columns: 1fr; }
   .spa-about-content { padding: 1.25rem; border-radius: var(--spa-radius); }
 }
 
 @media (max-width: 480px) {
-  .spa-title { font-size: 1.85rem; }
-  .spa-section-header h2 { font-size: 1.5rem; }
-  .spa-avatar { width: 72px; height: 72px; }
-  .spa-avatar svg { width: 34px; height: 34px; }
+  .spa-section { padding: 3rem 1rem; }
+  .spa-about-content { padding: 1rem; }
 }
