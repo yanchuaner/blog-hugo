@@ -1,0 +1,121 @@
+{{- /* Homepage SPA template */ -}}
+{{- define "main" }}
+
+<section id="hero" class="spa-hero">
+  <canvas id="particles"></canvas>
+  <div class="spa-hero-content">
+    <div class="spa-avatar">
+      <svg viewBox="0 0 100 100" width="80" height="80">
+        <circle cx="50" cy="40" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
+        <ellipse cx="50" cy="85" rx="30" ry="15" fill="none" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </div>
+    <h1 class="spa-title">黄湘林</h1>
+    <p class="spa-subtitle">ACM · AI · 鸿蒙 · 探索技术边界</p>
+    <div class="spa-status">
+      <span class="status-dot online"></span>
+      <span>coding & learning</span>
+    </div>
+    <nav class="spa-nav">
+      <a href="#hero" class="active">首页</a>
+      <a href="#about">关于</a>
+      <a href="#projects">项目</a>
+      <a href="#posts">文章</a>
+      <a href="#guestbook">留言</a>
+    </nav>
+  </div>
+</section>
+
+<section id="about" class="spa-section">
+  <div class="spa-section-header">
+    <span class="section-label">About</span>
+    <h2>关于我</h2>
+  </div>
+  <div class="spa-about-content">
+    <p>华南理工大学计算机专业学生，ACM 集训队成员，智能基座 HSD 部成员。</p>
+    <p>热爱算法竞赛、AI 实践和鸿蒙生态开发。信奉「实践中学习」。</p>
+    <div class="spa-tags">
+      <span>C++</span><span>算法</span><span>Python</span><span>AI</span>
+      <span>Next.js</span><span>React</span><span>鸿蒙</span><span>Git</span>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="spa-section">
+  <div class="spa-section-header">
+    <span class="section-label">Projects</span>
+    <h2>项目展示</h2>
+  </div>
+  <div class="spa-projects-grid">
+    <div class="spa-card">
+      <h3>🐍 贪吃蛇游戏</h3>
+      <p>经典贪吃蛇，C++ 实现，多种难度模式</p>
+      <span class="spa-card-tag">C++</span>
+    </div>
+    <div class="spa-card">
+      <h3>🌐 鸿蒙生态应用</h3>
+      <p>鸿蒙生态软件开发学习项目</p>
+      <span class="spa-card-tag">HarmonyOS · ArkTS</span>
+    </div>
+    <div class="spa-card">
+      <h3>📝 个人网站</h3>
+      <p>Next.js + React + Tailwind CSS</p>
+      <span class="spa-card-tag">Next.js · React</span>
+    </div>
+  </div>
+</section>
+
+<section id="posts" class="spa-section">
+  <div class="spa-section-header">
+    <span class="section-label">Blog</span>
+    <h2>最新文章</h2>
+    <a href="/posts/" class="spa-view-all">查看全部 →</a>
+  </div>
+  <div class="spa-posts-list">
+    {{- range first 5 (where site.RegularPages "Type" "in" site.Params.mainSections) }}
+    <article class="spa-post-entry">
+      <time>{{ .Date.Format "2006-01-02" }}</time>
+      <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      <p>{{ .Summary | plainify | truncate 120 }}</p>
+    </article>
+    {{- end }}
+  </div>
+</section>
+
+<section id="guestbook" class="spa-section">
+  <div class="spa-section-header">
+    <span class="section-label">Guestbook</span>
+    <h2>留言</h2>
+  </div>
+  <div class="spa-guestbook">
+    <p class="spa-guestbook-intro">欢迎留言交流，评论会显示在下方。</p>
+    <script src="https://giscus.app/client.js"
+        data-repo="yanchuaner/blog-hugo"
+        data-repo-id="R_kgDOTC1sgA"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOTC1sgM4C_vIv"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+    </script>
+  </div>
+</section>
+
+<footer class="spa-footer">
+  <p>© {{ now.Format "2006" }} 黄湘林 · Powered by Hugo & PaperMod</p>
+  <div class="spa-footer-links">
+    <a href="/posts/">文章</a>
+    <a href="/about/">更多关于</a>
+    <a href="/tags/">标签</a>
+    <a href="/index.xml">RSS</a>
+  </div>
+</footer>
+
+{{- end }}

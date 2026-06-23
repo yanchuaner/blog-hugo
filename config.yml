@@ -53,7 +53,7 @@ params:
     iconHeight: 35
   profileMode:
     enabled: false
-  homeInfoParams:
+  homeInfoParams_disabled:
     Title: "Hi there \U0001F44B"
     Content: >
       欢迎来到我的博客。这里记录算法学习、AI 实践与项目成长。
@@ -125,5 +125,6 @@ privacy:
   youtube:
     disabled: true
     privacyEnhanced: true
+
 
 
