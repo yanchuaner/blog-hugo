@@ -1,0 +1,9 @@
+{{- /* 安全头部 - 防止 XSS 和内容注入 */ -}}
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' https://giscus.app;
+  style-src 'self' 'unsafe-inline';
+  frame-src https://giscus.app;
+  img-src 'self' data: https:;
+  connect-src 'self' https://api.github.com;
+">

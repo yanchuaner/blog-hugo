@@ -20,10 +20,9 @@ minify:
 params:
   env: production
   title: '黄湘林的个人博客'
-  description: '华南理工大学计算机专业学生的个人博客，记录算法、AI 实践与项目成长。'
-  keywords: ['黄湘林', 'SCUT', 'ACM', '算法', 'AI', '鸿蒙', 'Next.js']
+  description: '记录算法、AI 实践与项目成长。'
+  keywords: ['算法', 'ACM', 'AI', '鸿蒙', 'C++']
   author: '黄湘林'
-  images: ['opengraph.webp']
   DateFormat: '2006-01-02'
   defaultTheme: auto
   disableThemeToggle: false
@@ -37,7 +36,7 @@ params:
   UseHugoToc: true
   disableSpecial1stPost: false
   disableScrollToTop: false
-  comments: false
+  comments: true
   hidemeta: false
   hideSummary: false
   showtoc: false
@@ -49,7 +48,7 @@ params:
     apple_touch_icon: ''
     safari_pinned_tab: ''
   label:
-    text: '黄湘林的博客'
+    text: 'HXL''s Blog'
     icon: ''
     iconHeight: 35
   profileMode:
@@ -57,11 +56,10 @@ params:
   homeInfoParams:
     Title: "Hi there \U0001F44B"
     Content: >
-      我是黄湘林，华南理工大学计算机类专业学生。ACM 集训队成员、智能基座 HSD 部成员。  
-      这里记录我的算法学习、AI 实践与项目成长。
+      欢迎来到我的博客。这里记录算法学习、AI 实践与项目成长。
   socialIcons:
     - name: github
-      url: 'https://github.com/'
+      url: 'https://github.com/yanchuaner'
     - name: rss
       url: 'index.xml'
   analytics:
@@ -87,8 +85,6 @@ params:
     threshold: 0.4
     minMatchCharLength: 0
     keys: ['title', 'permalink', 'summary', 'content']
-  footer:
-    text: '粤ICP备2026024784号 · 黄湘林 · 华南理工大学'
 menu:
   main:
     - identifier: '首页'
