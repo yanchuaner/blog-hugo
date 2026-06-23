@@ -419,25 +419,57 @@ body.list {
 }
 
 /* --- Guestbook --- */
+
+/* 首页留言区：放宽宽度 */
+.spa-section#guestbook {
+  max-width: 860px;
+}
+
 .spa-guestbook {
   margin-top: 0.5rem;
+  width: 100%;
 }
 
 .spa-guestbook-intro {
+  display: block;
   text-align: center;
   color: var(--spa-text-muted);
   margin-bottom: 2rem;
   font-size: 0.9rem;
-  padding: 0.75rem 1.25rem;
+  padding: 0.85rem 1.5rem;
   background: var(--spa-surface);
   border: 1px solid var(--spa-border);
-  border-radius: var(--spa-radius);
-  display: inline-block;
+  border-radius: var(--spa-radius-lg);
   box-shadow: var(--spa-shadow-sm);
 }
 
-.spa-guestbook > .giscus {
-  margin-top: 1rem;
+.spa-guestbook .giscus {
+  width: 100%;
+  margin-top: 0;
+}
+
+/* 独立留言板页面 */
+.spa-guestbook-wrapper {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.spa-guestbook-wrapper .spa-guestbook-intro {
+  display: block;
+  text-align: center;
+  color: var(--spa-text-muted);
+  margin-bottom: 2.5rem;
+  font-size: 0.9rem;
+  padding: 0.85rem 1.5rem;
+  background: var(--spa-surface);
+  border: 1px solid var(--spa-border);
+  border-radius: var(--spa-radius-lg);
+  box-shadow: var(--spa-shadow-sm);
+}
+
+/* 放宽独立留言板页面的 main 容器 */
+body:not(.list) .main:has(.spa-guestbook-wrapper) {
+  max-width: calc(860px + var(--gap) * 2);
 }
 
 /* --- Footer --- */
