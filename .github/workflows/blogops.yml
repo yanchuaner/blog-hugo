@@ -1,0 +1,62 @@
+name: BlogOps Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      file:
+        description: "要处理的文章路径"
+        required: false
+  push:
+    paths:
+      - "content/raw/**"
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install pyyaml
+      - name: Run quality checks on all drafts
+        run: |
+          python scripts/blogops.py status
+
+  # Phase 2: AI Pipeline（待接入 DeepSeek API 后启用）
+  # ai-process:
+  #   runs-on: ubuntu-latest
+  #   needs: quality-check
+  #   if: github.event_name == 'workflow_dispatch'
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-python@v5
+  #       with:
+  #         python-version: "3.12"
+  #     - name: Run AI Pipeline
+  #       env:
+  #         DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+  #       run: |
+  #         python scripts/blogops.py process ${{ github.event.inputs.file }}
+  #     - name: Commit processed article
+  #       run: |
+  #         git config user.name "BlogOps Bot"
+  #         git config user.email "blogops@codequest.com.cn"
+  #         git add content/posts/
+  #         git diff --cached --quiet || git commit -m "blogops: AI-processed article"
+  #         git push
+
+  build-verify:
+    runs-on: ubuntu-latest
+    needs: quality-check
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.146.7"
+          extended: true
+      - name: Hugo build
+        run: hugo --minify

@@ -1,0 +1,54 @@
+# 中文技术写作风格指南
+version: "1.0"
+
+# 标点符号
+punctuation:
+  chinese_text: "fullwidth"      # 中文使用全角标点 ，。！？
+  english_text: "halfwidth"      # 英文使用半角标点 ,.!?
+  mixed: "fullwidth"             # 中英混排：使用全角标点
+
+# 空格
+spacing:
+  chinese_english: true          # 中英文之间加空格：DeepSeek API
+  chinese_number: false          # 中文和数字之间不加空格：2026年
+  code_inline: false             # 行内代码不加空格：`hello`
+
+# 术语
+terms:
+  standard:
+    C++: "C++"                   # 不是 cpp/cplusplus
+    JavaScript: "JavaScript"     # 不是 JS（仅代码中可用）
+    TypeScript: "TypeScript"
+    Python: "Python"
+    GitHub: "GitHub"
+    Linux: "Linux"
+    Git: "Git"
+    Docker: "Docker"
+    DeepSeek: "DeepSeek"
+    LangChain: "LangChain"
+    HarmonyOS: "HarmonyOS"
+    STM32: "STM32"
+    FPGA: "FPGA"
+
+# 表达风格
+expression:
+  person: "first"                # 第一人称：我
+  tone: "conversational"         # 对话感，不过度正式
+  avoid:
+    - "非常"                     # 冗余修饰
+    - "特别"
+    - "真的很"
+    - "这个东西"                 # 口语化
+    - "那个东西"
+    - "其实"                     # 弱化的表达
+
+# 段落
+paragraph:
+  max_lines: 5                   # 超过 5 行拆分
+  min_sentences: 2               # 至少 2 句
+
+# 标题
+headings:
+  level2: "###"                  # 正文用小节用 ###
+  capitalize: false              # 标题不首字母大写（中文）
+  end_with_punctuation: false    # 标题不以标点结尾

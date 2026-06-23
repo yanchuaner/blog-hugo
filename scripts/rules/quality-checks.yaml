@@ -1,0 +1,56 @@
+# 质量检查规则
+version: "1.0"
+
+checks:
+  - id: "word_count"
+    description: "正文字数 ≥ 800（不含代码块和 front matter）"
+    severity: "error"
+    check_type: "regex"
+    pattern: "[\\u4e00-\\u9fff]"    # 中文字符计数
+
+  - id: "code_blocks"
+    description: "至少 1 个代码块"
+    severity: "error"
+    check_type: "regex"
+    pattern: "```"
+
+  - id: "table_or_list"
+    description: "至少 1 个表格或列表"
+    severity: "warning"
+    check_type: "regex"
+    pattern: "^\\\\||^- |^\\\\d+\\\\."
+
+  - id: "frontmatter_complete"
+    description: "front matter 包含必填字段"
+    severity: "error"
+    required_fields: ["title", "summary", "date", "categories", "tags"]
+
+  - id: "summary_length"
+    description: "summary ≤ 160 字"
+    severity: "warning"
+    check_type: "length"
+    max: 160
+
+  - id: "title_length"
+    description: "title ≤ 60 字"
+    severity: "warning"
+    check_type: "length"
+    max: 60
+
+  - id: "no_todo"
+    description: "无 TODO/FIXME/待补充/内容开发中 标记"
+    severity: "error"
+    check_type: "regex"
+    pattern: "TODO|FIXME|待补充|内容开发中"
+
+  - id: "chinese_english_spacing"
+    description: "中英文之间有空格"
+    severity: "warning"
+    check_type: "regex"
+    pattern: "[\\u4e00-\\u9fff][A-Za-z]"   # 检测无空格的
+
+  - id: "has_summary_section"
+    description: "有总结/心得段落"
+    severity: "warning"
+    check_type: "regex"
+    pattern: "总结|心得|下一步"

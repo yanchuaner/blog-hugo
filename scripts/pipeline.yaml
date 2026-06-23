@@ -1,0 +1,71 @@
+# BlogOps Pipeline 配置
+version: "1.0"
+
+# 内容规范（与 CONTENT_STANDARDS.md 同步）
+content_standards:
+  min_word_count: 800        # 不含代码块
+  min_code_blocks: 1
+  min_tables_or_lists: 1
+  require_summary_section: true
+  require_frontmatter_complete: true
+  max_summary_chars: 160
+
+# 分类与标签规则
+taxonomy:
+  categories:
+    - 算法
+    - 安全
+    - 开发
+    - AI
+  tags_by_category:
+    算法: ["ACM", "动态规划", "图论", "数据结构", "Codeforces", "竞赛"]
+    安全: ["信息安全", "二进制安全", "CTF", "逆向工程", "SAST", "Pwn"]
+    开发: ["HarmonyOS", "ArkTS", "STM32", "FPGA", "Verilog", "C++"]
+    AI: ["LangChain", "DeepSeek", "RAG", "Agent", "Prompt", "Python"]
+
+# Slug 生成规则
+slug:
+  language: "zh"             # 中文拼音 slug
+  max_length: 80
+  separator: "-"
+  remove_stopwords: true
+
+# AI 提供商配置（后续接入）
+ai:
+  provider: "deepseek"       # deepseek / openai / local
+  model: "deepseek-chat"
+  temperature:
+    analyze: 0.1             # 分析阶段：低温度，求准确
+    structure: 0.3           # 结构化：中等
+    enrich: 0.5              # 丰富：稍高
+    polish: 0.7              # 润色：较高，有创造性
+    seo: 0.2                 # SEO：低，求准确
+
+# 质量检查规则
+quality_checks:
+  - id: word_count
+    description: "字数 ≥ {{ min_word_count }}"
+    severity: error
+  - id: code_blocks
+    description: "代码块 ≥ {{ min_code_blocks }}"
+    severity: error
+  - id: frontmatter_complete
+    description: "front matter 包含 title/summary/date/categories/tags"
+    severity: error
+  - id: no_todo_markers
+    description: "无残留 TODO/FIXME/待补充 标记"
+    severity: warning
+  - id: internal_links_valid
+    description: "内部链接指向存在的页面"
+    severity: warning
+  - id: images_exist
+    description: "引用的图片文件存在"
+    severity: warning
+
+# 发布流程
+publish:
+  auto_commit: false          # 不自动提交，人工审核后手动确认
+  commit_template: "post: {title}"
+  push_remote: "origin"
+  branch: "main"
+  build_before_push: true     # push 前先 hugo build 验证
