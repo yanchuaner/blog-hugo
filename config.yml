@@ -111,6 +111,10 @@ menu:
       name: '项目'
       url: /about/#projects
       weight: 30
+    - identifier: '留言板'
+      name: '留言板'
+      url: /guestbook/
+      weight: 35
 pygmentsUseClasses: true
 markup:
   highlight:
