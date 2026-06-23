@@ -1,0 +1,131 @@
+# 起始 URL
+baseURL: 'https://blog.yanchuaner.cn'
+title: '黄湘林的个人博客'
+pagination:
+  pagerSize: 5
+theme: PaperMod
+languageCode: 'zh'
+DefaultContentLanguage: 'zh'
+hasCJKLanguage: true
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+enableEmoji: true
+enableGitInfo: false
+googleAnalytics: ''
+minify:
+  disableXML: true
+  minifyOutput: true
+params:
+  env: production
+  title: '黄湘林的个人博客'
+  description: '华南理工大学计算机专业学生的个人博客，记录算法、AI 实践与项目成长。'
+  keywords: ['黄湘林', 'SCUT', 'ACM', '算法', 'AI', '鸿蒙', 'Next.js']
+  author: '黄湘林'
+  images: ['opengraph.webp']
+  DateFormat: '2006-01-02'
+  defaultTheme: auto
+  disableThemeToggle: false
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: false
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: false
+  tocopen: false
+  assets:
+    favicon: ''
+    favicon16x16: ''
+    favicon32x32: ''
+    apple_touch_icon: ''
+    safari_pinned_tab: ''
+  label:
+    text: '黄湘林的博客'
+    icon: ''
+    iconHeight: 35
+  profileMode:
+    enabled: false
+  homeInfoParams:
+    Title: "Hi there \U0001F44B"
+    Content: >
+      我是黄湘林，华南理工大学计算机类专业学生。ACM 集训队成员、智能基座 HSD 部成员。  
+      这里记录我的算法学习、AI 实践与项目成长。
+  socialIcons:
+    - name: github
+      url: 'https://github.com/'
+    - name: rss
+      url: 'index.xml'
+  analytics:
+    google:
+      SiteVerificationTag: ''
+    bing:
+      SiteVerificationTag: ''
+    yandex:
+      SiteVerificationTag: ''
+  cover:
+    hidden: false
+    hiddenInList: false
+    hiddenInSingle: false
+  editPost:
+    URL: ''
+    Text: ''
+    appendFilePath: false
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ['title', 'permalink', 'summary', 'content']
+  footer:
+    text: '粤ICP备2026024784号 · 黄湘林 · 华南理工大学'
+menu:
+  main:
+    - identifier: '首页'
+      name: '首页'
+      url: /
+      weight: 1
+    - identifier: archives
+      name: '归档'
+      url: /archives/
+      weight: 2
+    - identifier: '分类'
+      name: '分类'
+      url: /categories/
+      weight: 10
+    - identifier: '标签'
+      name: '标签'
+      url: /tags/
+      weight: 20
+    - identifier: '关于'
+      name: '关于'
+      url: /about/
+      weight: 25
+    - identifier: '项目'
+      name: '项目'
+      url: /about/#projects
+      weight: 30
+pygmentsUseClasses: true
+markup:
+  highlight:
+    noClasses: false
+privacy:
+  vimeo:
+    disabled: true
+  twitter:
+    disabled: true
+  instagram:
+    disabled: true
+  youtube:
+    disabled: true
+    privacyEnhanced: true
