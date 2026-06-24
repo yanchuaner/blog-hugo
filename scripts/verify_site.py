@@ -1,5 +1,8 @@
 from pathlib import Path
 import re
+import urllib.request
+import ssl
+import yaml
 
 PUBLIC_DIR = Path("c:/Users/lucky dog/Desktop/web_projects/blog-hugo/public")
 
@@ -14,7 +17,7 @@ def check_html_files():
     index_content = index_html_path.read_text(encoding="utf-8")
     
     # 1. Check Favicon links
-    print("\n[1/5] Checking Favicon links...")
+    print("\n[1/6] Checking Favicon links...")
     favicons = ["favicon.ico", "favicon-16x16.png", "favicon-32x32.png", "apple-touch-icon.png", "safari-pinned-tab.svg"]
     favicon_ok = True
     for fav in favicons:
@@ -25,7 +28,7 @@ def check_html_files():
             favicon_ok = False
             
     # 2. Check CSP header
-    print("\n[2/5] Checking Content-Security-Policy (CSP) headers...")
+    print("\n[2/6] Checking Content-Security-Policy (CSP) headers...")
     csp_match = re.search(r'http-equiv=?["\']?Content-Security-Policy["\']?\s+content=["\']([^"\']+)["\']', index_content, re.IGNORECASE)
     if csp_match:
         csp_content = csp_match.group(1)
@@ -56,7 +59,7 @@ def check_html_files():
         print("  ❌ CSP header not found in index.html!")
 
     # 3. Check target="_blank" safety
-    print("\n[3/5] Checking target=\"_blank\" safety...")
+    print("\n[3/6] Checking target=\"_blank\" safety...")
     unsafe_links = 0
     total_blank_links = 0
     
@@ -76,7 +79,7 @@ def check_html_files():
         print(f"  ❌ Found {unsafe_links} unsafe target=\"_blank\" links!")
 
     # 4. Check inline styles in Projects list
-    print("\n[4/5] Checking inline styles in Projects page...")
+    print("\n[4/6] Checking inline styles in Projects page...")
     projects_html_path = PUBLIC_DIR / "projects" / "index.html"
     if projects_html_path.exists():
         projects_content = projects_html_path.read_text(encoding="utf-8")
@@ -89,7 +92,7 @@ def check_html_files():
         print("  ⚠️ projects/index.html not generated or does not exist.")
 
     # 5. Check local font files
-    print("\n[5/5] Checking local font files in public/fonts/...")
+    print("\n[5/6] Checking local font files in public/fonts/...")
     fonts_dir = PUBLIC_DIR / "fonts"
     fonts_css_path = PUBLIC_DIR.parent / "assets" / "css" / "extended" / "fonts.css"
     
@@ -119,6 +122,36 @@ def check_html_files():
                 print("  ✅ All referenced local fonts are present and non-empty in public/fonts/!")
             else:
                 print("  ❌ Some local fonts are missing or empty in public/fonts/!")
+
+    # 6. Check friends links (optional/warning)
+    print("\n[6/6] Checking friends links availability (optional warnings)...")
+    friends_yml_path = PUBLIC_DIR.parent / "data" / "friends.yml"
+    if friends_yml_path.exists():
+        try:
+            friends = yaml.safe_load(friends_yml_path.read_text(encoding="utf-8"))
+            if friends:
+                print(f"  Found {len(friends)} friends to check.")
+                ctx = ssl._create_unverified_context()
+                for f in friends:
+                    name = f.get("name", "Unknown")
+                    url = f.get("url")
+                    if not url:
+                        continue
+                    try:
+                        req = urllib.request.Request(
+                            url, 
+                            headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+                        )
+                        with urllib.request.urlopen(req, context=ctx, timeout=3) as res:
+                            print(f"  ✅ Friend '{name}' ({url}) is ALIVE (status: {res.status})")
+                    except Exception as e:
+                        print(f"  ⚠️ Warning: Friend '{name}' ({url}) check failed: {e}")
+            else:
+                print("  No friends found in friends.yml.")
+        except Exception as e:
+            print(f"  ⚠️ Error reading or checking friends: {e}")
+    else:
+        print("  ⚠️ friends.yml not found in data/.")
 
     print("\n--- Verification Completed ---")
 

@@ -2,7 +2,7 @@
 title: "2025 成长记录"
 summary: "高考结束、进入华南理工大学、ACM 集训队入队。"
 date: 2026-06-24
-draft: true
+draft: false
 showtoc: true
 ---
 

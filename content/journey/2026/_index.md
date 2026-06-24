@@ -2,7 +2,7 @@
 title: "2026 成长记录"
 summary: "项目实践、技术深耕、博客上线、开源贡献起步。"
 date: 2026-06-24
-draft: true
+draft: false
 showtoc: true
 ---
 

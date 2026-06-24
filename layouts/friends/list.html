@@ -1,0 +1,43 @@
+{{- /* Friends Listing Layout */ -}}
+{{- define "main" }}
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+</header>
+
+<div class="post-content md-content">
+  {{ .Content }}
+</div>
+
+{{- $friends := index site.Data "friends" -}}
+{{- if $friends }}
+<div class="spa-friends-grid">
+  {{- range $friends }}
+  <div class="spa-friend-card">
+    <div class="spa-friend-avatar">
+      <img src="{{ .avatar | default "/favicon.ico" }}" alt="{{ .name }}" loading="lazy">
+    </div>
+    <div class="spa-friend-info">
+      <h3 class="spa-friend-name">{{ .name }}</h3>
+      <p class="spa-friend-desc">{{ .description }}</p>
+      <a href="{{ .url }}" target="_blank" rel="noopener noreferrer" class="spa-friend-link">访问站点 →</a>
+    </div>
+  </div>
+  {{- end }}
+</div>
+{{- else }}
+<p>暂无友情链接。</p>
+{{- end }}
+
+{{- /* Embed Giscus comments at the bottom so users can submit exchange requests */ -}}
+{{- if .Params.comments | default true }}
+<div class="spa-guestbook-wrapper" style="margin-top: 4rem;">
+  <div class="spa-guestbook">
+    <p class="spa-guestbook-intro">💬 欢迎在此处留下您的友链信息交换链接</p>
+    <div class="giscus">
+      {{- partial "comments.html" . }}
+    </div>
+  </div>
+</div>
+{{- end }}
+
+{{- end }}

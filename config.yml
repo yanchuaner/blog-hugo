@@ -13,6 +13,11 @@ buildExpired: false
 enableEmoji: true
 enableGitInfo: false
 googleAnalytics: ''
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
 minify:
   disableXML: true
   minifyOutput: true
@@ -95,6 +100,14 @@ menu:
       name: '关于'
       url: /about/
       weight: 4
+    - identifier: 'search'
+      name: '搜索'
+      url: /search/
+      weight: 5
+    - identifier: 'friends'
+      name: '友链'
+      url: /friends/
+      weight: 6
 
 pygmentsUseClasses: true
 markup:

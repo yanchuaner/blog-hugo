@@ -1,0 +1,42 @@
+{{- /* Journey (Timeline) list layout */ -}}
+{{- define "main" }}
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}
+  <div class="post-description">{{ . | markdownify }}</div>
+  {{- end }}
+</header>
+
+{{- if .Content }}
+<div class="post-content md-content">
+  {{ .Content }}
+</div>
+{{- end }}
+
+{{- /* Retrieve sub-sections (each year) */ -}}
+{{- $timelineSections := .Sections.ByDate.Reverse -}}
+{{- if $timelineSections }}
+<div class="spa-timeline-vertical">
+  {{- range $index, $sec := $timelineSections }}
+  <div class="spa-timeline-item-block">
+    <div class="spa-timeline-marker-wrapper">
+      <div class="spa-timeline-marker-line"></div>
+      <div class="spa-timeline-marker-dot"></div>
+    </div>
+    
+    <div class="spa-timeline-card-container">
+      <div class="spa-timeline-year-label">{{ $sec.Title }}</div>
+      <div class="spa-timeline-card">
+        <div class="spa-timeline-card-body">
+          {{- /* Render the Markdown content of the year index file */ -}}
+          {{ $sec.Content }}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{- end }}
+</div>
+{{- else }}
+<p>暂无成长记录。</p>
+{{- end }}
+{{- end }}

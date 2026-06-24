@@ -209,7 +209,7 @@
   }
 
   // Use event delegation or attach directly
-  document.querySelectorAll('.spa-project-card, .spa-skill-category').forEach(el => {
+  document.querySelectorAll('.spa-project-card, .spa-skill-category, .spa-timeline-card, .spa-friend-card').forEach(el => {
     el.addEventListener('mousemove', handleMouseMove);
   });
 })();

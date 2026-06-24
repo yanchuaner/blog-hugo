@@ -2,7 +2,7 @@
 title: "2024 成长记录"
 summary: "高三备考与计算机兴趣萌芽。"
 date: 2026-06-24
-draft: true
+draft: false
 showtoc: true
 ---
 
