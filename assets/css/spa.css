@@ -63,10 +63,30 @@ body.list { background: var(--spa-bg) !important; min-height: 100vh; }
   border-bottom: 1px solid var(--spa-border) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s !important;
+}
+
+.header.nav-hidden {
+  transform: translateY(-100%) !important;
 }
 
 [data-theme="dark"] .header {
   background: rgba(9,9,11,0.85) !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px; height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--spa-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--spa-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--spa-text-muted);
 }
 
 /* 粒子背景 */
@@ -91,12 +111,35 @@ body.list { background: var(--spa-bg) !important; min-height: 100vh; }
   position: relative; z-index: 1;
   display: flex; align-items: center; gap: 4rem;
   max-width: 900px; width: 100%;
-  animation: fadeUp 0.7s ease-out;
 }
 
+.spa-hero-badge, .spa-hero-name, .spa-hero-role, .spa-hero-bio, .spa-hero-actions, .spa-hero-tags {
+  opacity: 0;
+  animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.spa-hero-badge { animation-delay: 0.1s; }
+.spa-hero-name { animation-delay: 0.2s; }
+.spa-hero-role { animation-delay: 0.3s; }
+.spa-hero-bio { animation-delay: 0.4s; }
+.spa-hero-actions { animation-delay: 0.5s; }
+.spa-hero-tags { animation-delay: 0.6s; }
+
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes floating {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
 }
 
 /* 左侧 */
@@ -121,7 +164,11 @@ body.list { background: var(--spa-bg) !important; min-height: 100vh; }
   font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 800; letter-spacing: -0.04em;
   line-height: 1.1; margin-bottom: 0.6rem;
-  color: var(--spa-text);
+  background: var(--spa-gradient);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradientFlow 5s linear infinite, fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 .spa-hero-role {
@@ -192,6 +239,7 @@ body.list { background: var(--spa-bg) !important; min-height: 100vh; }
   border: 2px solid var(--spa-border);
   box-shadow: var(--spa-shadow-md);
   display: flex; align-items: center; justify-content: center;
+  animation: floating 6s ease-in-out infinite;
 }
 
 .spa-avatar-wrapper svg {
@@ -257,6 +305,7 @@ body.list { background: var(--spa-bg) !important; min-height: 100vh; }
 }
 
 .spa-skill-category {
+  position: relative;
   background: var(--spa-surface);
   border: 1px solid var(--spa-border);
   border-radius: var(--spa-radius-lg);
@@ -302,6 +351,7 @@ body.list { background: var(--spa-bg) !important; min-height: 100vh; }
 }
 
 .spa-project-card {
+  position: relative;
   background: var(--spa-surface);
   border: 1px solid var(--spa-border);
   border-radius: var(--spa-radius-xl);
@@ -310,6 +360,32 @@ body.list { background: var(--spa-bg) !important; min-height: 100vh; }
   transition: all var(--spa-transition);
   display: flex; flex-direction: column;
 }
+
+/* Mouse Glow Effect */
+.spa-project-card::before, .spa-skill-category::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: inherit;
+  padding: 1.5px; /* border thickness */
+  background: radial-gradient(
+    400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    var(--spa-accent),
+    transparent 40%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.spa-project-card:hover::before, .spa-skill-category:hover::before {
+  opacity: 1;
+}
+
 
 .spa-project-card:hover {
   transform: translateY(-3px);

@@ -1,5 +1,23 @@
 // assets/js/theme-footer.js
 document.addEventListener("DOMContentLoaded", function() {
+    // Smart Sticky Header
+    let lastScrollY = window.scrollY;
+    const header = document.querySelector('.header');
+    if (header) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                if (window.scrollY > lastScrollY) {
+                    header.classList.add('nav-hidden');
+                } else {
+                    header.classList.remove('nav-hidden');
+                }
+            } else {
+                header.classList.remove('nav-hidden');
+            }
+            lastScrollY = window.scrollY;
+        }, { passive: true });
+    }
+
     let menu = document.getElementById('menu');
     if (menu) {
         const scrollPosition = localStorage.getItem("menu-scroll-position");

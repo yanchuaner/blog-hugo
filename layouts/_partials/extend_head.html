@@ -8,6 +8,7 @@
   img-src 'self' data: https:;
   connect-src 'self' https://api.github.com;
 ">
+<meta name="view-transition" content="same-origin">
 
 {{- $themeInit := resources.Get "js/theme-init.js" | minify | fingerprint }}
 <script src="{{ $themeInit.RelPermalink }}" integrity="{{ $themeInit.Data.Integrity }}"></script>

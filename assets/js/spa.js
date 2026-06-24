@@ -12,6 +12,17 @@
   const COUNT = 45;
   const CONNECT = 130;
 
+  // Track global mouse position for particles
+  let mouse = { x: -1000, y: -1000 };
+  window.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+  window.addEventListener('mouseout', () => {
+    mouse.x = -1000;
+    mouse.y = -1000;
+  });
+
   // Cached dark state — updated via MutationObserver only
   let isDarkMode = document.documentElement.classList.contains('dark');
 
@@ -43,6 +54,18 @@
     update() {
       this.x += this.vx;
       this.y += this.vy;
+
+      // Mouse repel interaction
+      const dx = this.x - mouse.x;
+      const dy = this.y - mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const repelRadius = 120;
+      if (dist < repelRadius) {
+        const force = (repelRadius - dist) / repelRadius;
+        this.x += (dx / dist) * force * 1.5;
+        this.y += (dy / dist) * force * 1.5;
+      }
+
       if (this.x < -20) this.x = canvas.width + 20;
       if (this.x > canvas.width + 20) this.x = -20;
       if (this.y < -20) this.y = canvas.height + 20;
@@ -172,4 +195,21 @@
   window.addEventListener('scroll', toggle, { passive: true });
   btn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
   toggle();
+})();
+
+// --- Mouse Glow Tracking ---
+(function() {
+  function handleMouseMove(e) {
+    const target = e.currentTarget;
+    const rect = target.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    target.style.setProperty('--mouse-x', `${x}px`);
+    target.style.setProperty('--mouse-y', `${y}px`);
+  }
+
+  // Use event delegation or attach directly
+  document.querySelectorAll('.spa-project-card, .spa-skill-category').forEach(el => {
+    el.addEventListener('mousemove', handleMouseMove);
+  });
 })();
