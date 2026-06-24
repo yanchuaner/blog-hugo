@@ -1,5 +1,5 @@
 baseURL: 'https://blog.codequest.com.cn'
-title: '黄湘林 | 信息安全 · AI · 系统开发'
+title: '黄湘林 | 算法 · 系统 · 硬件'
 pagination:
   pagerSize: 5
 theme: PaperMod
@@ -24,11 +24,10 @@ minify:
 
 params:
   env: production
-  title: '黄湘林 | 信息安全 · AI · 系统开发'
+  title: '黄湘林 | 算法 · 系统 · 硬件'
   description: >
-    华南理工大学计算机专业学生，ACM集训队成员。专注信息安全（二进制安全/AI安全）、
-    系统底层开发与AI应用实践。博客记录算法竞赛、项目复盘与技术思考——项目驱动、实战检验、持续迭代。
-  keywords: ['信息安全', '二进制安全', 'AI安全', 'ACM', '算法', '鸿蒙', 'C++', '系统开发', 'LangChain', 'DeepSeek']
+    华南理工大学计算机专业学生，ACM 集训队成员。专注于算法竞赛、底层系统开发与硬件底层设计——项目驱动、实战检验、持续迭代。
+  keywords: ['ACM', '算法竞赛', '数据结构', 'C++', 'Linux', 'Verilog', 'FPGA', '计算机体系结构']
   author: '黄湘林'
   DateFormat: '2006-01-02'
   defaultTheme: auto
