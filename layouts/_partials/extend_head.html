@@ -9,20 +9,13 @@
   connect-src 'self' https://api.github.com;
 ">
 
-<script>
-(function(){
-  var d = document.documentElement;
-  if (d.getAttribute('data-theme') === 'dark') d.classList.add('dark');
-  new MutationObserver(function(){
-    d.classList.toggle('dark', d.getAttribute('data-theme') === 'dark');
-  }).observe(d, {attributes:true, attributeFilter:['data-theme']});
-})();
-</script>
+{{- $themeInit := resources.Get "js/theme-init.js" | minify | fingerprint }}
+<script src="{{ $themeInit.RelPermalink }}" integrity="{{ $themeInit.Data.Integrity }}"></script>
 
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/inter-v12-latin-regular.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/noto-sans-sc-v26-chinese-simplified-regular.woff2">
 
-{{- if or .IsHome (eq .Layout "guestbook") (eq .Section "projects") }}
+{{- if or .IsHome (eq .Layout "guestbook") (eq .Section "projects") (eq .Section "posts") }}
 {{- $style := resources.Get "css/spa.css" | minify | fingerprint }}
 <link rel="preload" as="style" href="{{ $style.RelPermalink }}">
 <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}">

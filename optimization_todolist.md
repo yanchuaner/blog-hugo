@@ -205,4 +205,34 @@
 | **第五阶段** | #8, #9 | 30 分钟 | SEO 和 CSP 优化，需哈希计算和部署验证 |
 | **第六阶段** | #10, #11 | 15 分钟 | Preload 和移动端微调 |
 
-> **总预计耗时**：3-4 小时（已全部高效实施完毕并通过自动化合规质量校验）
+> **总预计耗时**：3-4 小时（第一批优化已全部高效实施完毕并通过自动化合规质量校验）
+
+---
+
+## 🛠️ 第二阶段：深度架构与交互修复（已完成）
+
+### 12. 修复 Giscus 评论区宽度异常
+
+- **维度**：UI/UX / 布局一致性
+- **涉及文件**：
+  - `layouts/_partials/extend_head.html`
+  - `assets/css/spa.css`
+- **问题**：全局 CSS 文件 `spa.css` 原本仅在首页、项目页和留言板页加载，导致文章页（`/posts/`）缺少样式约束，Giscus 评论区变为默认固定宽度（挤在左侧）。
+- [x] 修改 `extend_head.html`，将 `spa.css` 的加载条件扩展至文章页 `(eq .Section "posts")`
+- [x] 在 `spa.css` 中增加 Giscus 外层间距优化 `margin-top: 1.5rem`
+- **验证**：访问 `/posts/` 下任意文章，确认底部评论区宽度撑满容器且居中显示，并且加载了全局 UI 样式。
+
+### 13. 修复暗亮模式切换失效与 CSP 冲突
+
+- **维度**：交互 / 安全合规
+- **涉及文件**：
+  - `layouts/_partials/footer.html`
+  - `layouts/_partials/extend_head.html`
+  - `layouts/partials/extend_footer.html`
+  - `assets/js/theme-init.js` (新建)
+  - `assets/js/theme-footer.js` (新建)
+- **问题**：为了安全加强了 CSP，禁用了 `'unsafe-inline'`，导致 PaperMod 原生的暗黑模式检测脚本和 Footer 交互脚本（主题切换、回到顶部、代码复制）被浏览器拦截，主题切换按钮失效。
+- [x] 剥离 `<head>` 区域的主题检测与 `spa.css` 的桥接脚本，合并写入独立文件 `theme-init.js` 并作为同步外链脚本加载，彻底消除 FOUC 且符合 CSP。
+- [x] 将 `footer.html` 中所有的原生内联 `<script>`（包含菜单滚动、锚点平滑滚动、回到顶部、主题切换、代码块复制）剥离，写入 `theme-footer.js`。
+- [x] 确保主题切换时通过 `postMessage` 向 Giscus iframe 同步发送主题变更指令（`light` / `transparent_dark`）。
+- **验证**：访问任意页面，点击右上角主题切换按钮能正常响应；打开控制台确认无 CSP 报错。

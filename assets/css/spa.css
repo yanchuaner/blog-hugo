@@ -546,9 +546,9 @@ body.list { background: var(--spa-bg) !important; min-height: 100vh; }
   border-radius: var(--spa-radius-lg); box-shadow: var(--spa-shadow-sm);
 }
 
-.giscus, .giscus-frame { width: 100% !important; max-width: 100% !important; }
+.giscus, .giscus-frame { width: 100% !important; max-width: 100% !important; margin-top: 1.5rem; }
 
-giscus-widget { display: block; width: 100% !important; max-width: 100% !important; }
+giscus-widget { display: block; width: 100% !important; max-width: 100% !important; margin-top: 1.5rem; }
 
 /* 独立留言板 */
 .spa-guestbook-wrapper { width: 100%; max-width: 820px; margin: 0 auto; }
