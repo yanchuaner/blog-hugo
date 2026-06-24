@@ -1,7 +1,5 @@
 {{- $footerScript := resources.Get "js/theme-footer.js" | minify | fingerprint }}
 <script src="{{ $footerScript.RelPermalink }}" integrity="{{ $footerScript.Data.Integrity }}" defer></script>
 
-{{- if or .IsHome (eq .Layout "guestbook") (eq .Section "projects") }}
 {{- $script := resources.Get "js/spa.js" | minify | fingerprint }}
 <script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}" defer></script>
-{{- end }}

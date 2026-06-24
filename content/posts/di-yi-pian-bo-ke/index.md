@@ -7,7 +7,7 @@ categories:
   - 博客
 tags:
   - test
-comments: false
+comments: true
 showtoc: false
 searchHidden: false
 hidemeta: false
