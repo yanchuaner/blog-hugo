@@ -38,17 +38,19 @@
 
 ### 2.3 UI/UX 与交互体验 (UI/UX & Interactions) — 🟢 已全面优化
 *   **消除首页暗黑模式同步闪烁 (FOUC)**：
-    *   **实现**：将 `spa.js` 底部的暗黑 class 同步逻辑剥离，提取为极简的内联 script 块，置于 `extend_head.html` 中的 CSS 资源加载前执行。浏览器在解析 DOM 前即可完成 `.dark` 类的装载，彻底消除了刷新时“先亮后暗”的视觉闪烁。
+    *   **实现**：将主题初始化与 `.dark` 类的桥接逻辑完全外置到独立的 `theme-init.js` 文件中，并通过同步阻塞的方式在 DOM 渲染前加载，彻底消除了刷新时的“先亮后暗”闪烁，且完美符合严格的 CSP 规范。
 *   **抽取 HTML 文件中的硬编码内联样式**：
     *   **实现**：重构 `layouts/projects/list.html`，移除卡片上所有繁杂的内联 `style="..."` 属性，将其提取为 class（如 `.spa-projects-grid`, `.spa-project-card` 等），项目列表页视觉表现与 SPA 首页风格达成 100% 像素级一致，维护性显著提升。
 *   **回顶按钮手势优化**：
     *   **实现**：在 `spa.css` 的 768px 响应式媒体查询中调整了 `.spa-back-top` 按钮的定位（`bottom: 4.5rem; right: 1.25rem;`），规避了移动端底部系统手势栏的冲突。
+*   **修复 Giscus 评论区宽度对齐与主题联动**：
+    *   **实现**：修改了 `extend_head.html`，将全局 `spa.css` 的生效范围扩展至文章详情页 (`/posts/`)，并为其设定了 `margin-top: 1.5rem` 的安全间距，解决了评论区在文章页被向左挤压的排版 Bug。同时，增加了向 iframe 发送 `postMessage` 的机制，实现了评论区实时跟随全站暗黑/高亮模式无缝切换。
 
 ### 2.4 安全与健壮性 (Security & Robustness) — 🟢 已全面优化
 *   **防范 target="_blank" 安全漏洞**：
     *   **实现**：对首页 `index.html`、项目页 `list.html` 以及重写的 PaperMod 底部版权模板 `layouts/_partials/footer.html` 进行了全方位安全升级，确保全站共 154 个外部超链接均配有安全的 `rel="noopener noreferrer"` 属性。
-*   **收紧 CSP 安全规则**：
-    *   **实现**：移除了 CSP 中所有的 `'unsafe-inline'`。对于暗黑闪烁内联脚本，通过在 `script-src` 中加入其 SHA-256 校验哈希（`sha256-9+XWnYTFVgY682OAV67M8L4Q1RlYMmLD3EiWQxZdlOg=`）进行白名单授权；同时由于全局 CSS 内联字体声明已被外置到打包 CSS，`style-src` 收紧为 `'self'`，安全机制完备。
+*   **收紧 CSP 安全规则与内联脚本重构**：
+    *   **实现**：彻底移除了 CSP 中的 `'unsafe-inline'`。针对由于收紧 CSP 导致的 PaperMod 原生交互（如主题切换、平滑滚动、代码块复制）失效的问题，我们将所有位于 `<head>` 和 `<footer>` 中的原生内联脚本全部剥离，分别构建了 `assets/js/theme-init.js` 和 `assets/js/theme-footer.js`。此举在维持网站极高安全合规标准的前提下，完美修复了原生的所有动态交互失效 Bug。
 
 ---
 
@@ -63,4 +65,4 @@
 ## 4. 后续建议与路线
 
 1.  **静态资源托管**：当前 `@font-face` 已绑定本地 `/fonts/` 路径，当部署在 Cloudflare 等 CDN 环境下时，建议通过配置 `static/fonts/` 中的 `woff2` 文件完成资源的最终交付。如暂无 woff2 实体文件，页面将自动、平滑地回退到操作系统的系统级 modern 字体栈。
-2.  **Giscus 评论主题联动**：目前 Giscus 评论框架采用 preferred_color_scheme。如需更精细控制，可在 `spa.js` 的 MutationObserver 监听 data-theme 变更时，利用 `iframe.contentWindow.postMessage` 实时向 Giscus 发送主题切换命令。
+2.  **内容与架构分离**：随着博客文章持续增多，可以考虑在 `hugo.toml` (或 `config.yml`) 中进一步拆分 Taxonomy 目录树（如增加独立专栏归档页），以保持当前 `mainSections` 的简洁性。
