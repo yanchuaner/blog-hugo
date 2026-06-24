@@ -14,7 +14,7 @@ def check_html_files():
     index_content = index_html_path.read_text(encoding="utf-8")
     
     # 1. Check Favicon links
-    print("\n[1/4] Checking Favicon links...")
+    print("\n[1/5] Checking Favicon links...")
     favicons = ["favicon.ico", "favicon-16x16.png", "favicon-32x32.png", "apple-touch-icon.png", "safari-pinned-tab.svg"]
     favicon_ok = True
     for fav in favicons:
@@ -25,7 +25,7 @@ def check_html_files():
             favicon_ok = False
             
     # 2. Check CSP header
-    print("\n[2/4] Checking Content-Security-Policy (CSP) headers...")
+    print("\n[2/5] Checking Content-Security-Policy (CSP) headers...")
     csp_match = re.search(r'http-equiv=?["\']?Content-Security-Policy["\']?\s+content=["\']([^"\']+)["\']', index_content, re.IGNORECASE)
     if csp_match:
         csp_content = csp_match.group(1)
@@ -56,7 +56,7 @@ def check_html_files():
         print("  ❌ CSP header not found in index.html!")
 
     # 3. Check target="_blank" safety
-    print("\n[3/4] Checking target=\"_blank\" safety...")
+    print("\n[3/5] Checking target=\"_blank\" safety...")
     unsafe_links = 0
     total_blank_links = 0
     
@@ -76,7 +76,7 @@ def check_html_files():
         print(f"  ❌ Found {unsafe_links} unsafe target=\"_blank\" links!")
 
     # 4. Check inline styles in Projects list
-    print("\n[4/4] Checking inline styles in Projects page...")
+    print("\n[4/5] Checking inline styles in Projects page...")
     projects_html_path = PUBLIC_DIR / "projects" / "index.html"
     if projects_html_path.exists():
         projects_content = projects_html_path.read_text(encoding="utf-8")
@@ -87,6 +87,38 @@ def check_html_files():
             print("  ✅ Projects page inline styles successfully replaced with CSS classes!")
     else:
         print("  ⚠️ projects/index.html not generated or does not exist.")
+
+    # 5. Check local font files
+    print("\n[5/5] Checking local font files in public/fonts/...")
+    fonts_dir = PUBLIC_DIR / "fonts"
+    fonts_css_path = PUBLIC_DIR.parent / "assets" / "css" / "extended" / "fonts.css"
+    
+    if not fonts_dir.exists():
+        print("  ❌ Fonts directory not found in public/!")
+    elif not fonts_css_path.exists():
+        print("  ❌ fonts.css not found in assets/css/extended/!")
+    else:
+        fonts_css_content = fonts_css_path.read_text(encoding="utf-8")
+        referenced_fonts = re.findall(r"url\('/fonts/([^']+)'\)", fonts_css_content)
+        if not referenced_fonts:
+            referenced_fonts = re.findall(r'url\("/fonts/([^"]+)"\)', fonts_css_content)
+            
+        if not referenced_fonts:
+            print("  ⚠️ No referenced local fonts found in fonts.css.")
+        else:
+            print(f"  Found {len(referenced_fonts)} referenced fonts in fonts.css.")
+            fonts_ok = True
+            for font in referenced_fonts:
+                local_font_file = fonts_dir / font
+                if local_font_file.exists() and local_font_file.stat().st_size > 0:
+                    print(f"  ✅ Font file exists: {font} ({local_font_file.stat().st_size} bytes)")
+                else:
+                    print(f"  ❌ Font file missing or empty: {font}")
+                    fonts_ok = False
+            if fonts_ok:
+                print("  ✅ All referenced local fonts are present and non-empty in public/fonts/!")
+            else:
+                print("  ❌ Some local fonts are missing or empty in public/fonts/!")
 
     print("\n--- Verification Completed ---")
 

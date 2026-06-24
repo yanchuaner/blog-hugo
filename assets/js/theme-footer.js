@@ -123,4 +123,57 @@ document.addEventListener("DOMContentLoaded", function() {
             codeblock.parentNode.appendChild(copybutton);
         }
     });
+
+    // --- Instant Page Prefetching (P0) ---
+    const prefetchTimers = new Map();
+    const prefetchedUrls = new Set();
+
+    function prefetchLink(url) {
+        if (prefetchedUrls.has(url)) return;
+        prefetchedUrls.add(url);
+        const link = document.createElement("link");
+        link.rel = "prefetch";
+        link.href = url;
+        document.head.appendChild(link);
+    }
+
+    document.addEventListener("mouseover", function(e) {
+        const anchor = e.target.closest("a");
+        if (!anchor || !anchor.href) return;
+
+        const url = new URL(anchor.href, window.location.origin);
+        if (url.origin !== window.location.origin) return;
+        if (url.hash && url.pathname === window.location.pathname) return;
+        if (url.pathname.match(/\.(xml|zip|pdf|docx|png|jpg|jpeg|gif|svg|mp4|webm)$/i)) return;
+
+        const targetUrl = url.pathname + url.search;
+        if (prefetchedUrls.has(targetUrl)) return;
+
+        const timer = setTimeout(() => {
+            prefetchLink(targetUrl);
+            prefetchTimers.delete(anchor);
+        }, 80);
+        prefetchTimers.set(anchor, timer);
+    }, { passive: true });
+
+    document.addEventListener("mouseout", function(e) {
+        const anchor = e.target.closest("a");
+        if (!anchor) return;
+        if (prefetchTimers.has(anchor)) {
+            clearTimeout(prefetchTimers.get(anchor));
+            prefetchTimers.delete(anchor);
+        }
+    }, { passive: true });
+
+    document.addEventListener("touchstart", function(e) {
+        const anchor = e.target.closest("a");
+        if (!anchor || !anchor.href) return;
+        const url = new URL(anchor.href, window.location.origin);
+        if (url.origin !== window.location.origin) return;
+        if (url.hash && url.pathname === window.location.pathname) return;
+        if (url.pathname.match(/\.(xml|zip|pdf|docx|png|jpg|jpeg|gif|svg|mp4|webm)$/i)) return;
+
+        const targetUrl = url.pathname + url.search;
+        prefetchLink(targetUrl);
+    }, { passive: true });
 });
