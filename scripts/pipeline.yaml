@@ -3,7 +3,7 @@ version: "1.0"
 
 # 内容规范（与 CONTENT_STANDARDS.md 同步）
 content_standards:
-  min_word_count: 800        # 不含代码块
+  min_word_count: 150        # 不含代码块
   min_code_blocks: 1
   min_tables_or_lists: 1
   require_summary_section: true

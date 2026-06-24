@@ -14,7 +14,7 @@ comments: true
 showtoc: true
 searchHidden: false
 hidemeta: false
-draft: true
+draft: false
 ---
 
 ## 为什么学鸿蒙

@@ -324,6 +324,11 @@ body.list { background: var(--spa-bg) !important; min-height: 100vh; }
   color: var(--spa-text-muted); font-size: 2rem;
 }
 
+.spa-project-image img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
 .spa-project-body {
   padding: 1.25rem; flex: 1;
   display: flex; flex-direction: column;
@@ -634,6 +639,7 @@ body.list .main:has(.spa-guestbook-wrapper) .post-header {
   .spa-post-meta { flex-direction: row; gap: 0.75rem; min-width: auto; }
   .spa-post-meta time { font-size: 0.75rem; }
   .spa-skills-grid { grid-template-columns: 1fr; }
+  .spa-back-top { bottom: 4.5rem; right: 1.25rem; }
 }
 
 @media (max-width: 480px) {

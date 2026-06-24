@@ -15,7 +15,7 @@ comments: true
 showtoc: true
 searchHidden: false
 hidemeta: false
-draft: true
+draft: false
 ---
 
 ## 项目背景
@@ -77,6 +77,6 @@ result = chain.invoke({"outline": "主角在秘境中发现上古传承..."})
 
 ## 后续优化
 
-- 引入多 Agent 协作（角色Agent、情节Agent、文风Agent）
+- 引入多 Agent 协作（角色 Agent、情节 Agent、文风 Agent）
 - 使用更细粒度的向量索引
 - 考虑 Fine-tuning 开源模型

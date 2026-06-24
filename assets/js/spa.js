@@ -77,11 +77,36 @@
     }
   }
 
+  let animating = true;
+  let inView = true;
+
   function animate() {
+    if (!animating || !inView) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     particles.forEach(p => { p.update(); p.draw(); });
     drawLines();
     requestAnimationFrame(animate);
+  }
+
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      animating = false;
+    } else {
+      animating = true;
+      animate();
+    }
+  });
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        inView = entry.isIntersecting;
+        if (inView && animating) {
+          animate();
+        }
+      });
+    }, { threshold: 0 });
+    observer.observe(canvas);
   }
 
   animate();
@@ -132,15 +157,6 @@
   }
 })();
 
-// --- Dark mode sync: toggle .dark class ---
-(function() {
-  function sync() {
-    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    document.documentElement.classList.toggle('dark', isDark);
-  }
-  sync();
-  new MutationObserver(sync).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-})();
 
 // --- Back-to-top button ---
 (function() {

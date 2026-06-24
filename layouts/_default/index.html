@@ -19,7 +19,7 @@
       <div class="spa-hero-actions">
         <a href="#projects" class="spa-btn spa-btn-primary">查看项目</a>
         <a href="#posts" class="spa-btn spa-btn-secondary">阅读文章</a>
-        <a href="https://github.com/yanchuaner" class="spa-btn spa-btn-ghost" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/yanchuaner" class="spa-btn spa-btn-ghost" target="_blank" rel="noopener noreferrer">GitHub</a>
       </div>
       <div class="spa-hero-tags">
         <span>Security</span>
@@ -139,10 +139,10 @@
         </div>
         <div class="spa-project-links">
           {{- if .github }}
-          <a href="{{ .github }}" class="spa-project-link" target="_blank" rel="noopener">GitHub</a>
+          <a href="{{ .github }}" class="spa-project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
           {{- end }}
           {{- if .demo }}
-          <a href="{{ .demo }}" class="spa-project-link ghost" target="_blank" rel="noopener">Demo →</a>
+          <a href="{{ .demo }}" class="spa-project-link ghost" target="_blank" rel="noopener noreferrer">Demo →</a>
           {{- end }}
         </div>
       </div>
@@ -249,7 +249,7 @@
   <div class="spa-footer-links">
     <a href="/posts/">文章</a>
     <a href="/about/">完整简历</a>
-    <a href="https://github.com/yanchuaner" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://github.com/yanchuaner" target="_blank" rel="noopener noreferrer">GitHub</a>
     <a href="/index.xml">RSS</a>
   </div>
 </footer>

@@ -2,7 +2,7 @@
 title: "成长档案"
 summary: "2024-2026 技术成长记录：竞赛、项目、学习与实习。"
 date: 2026-06-24
-draft: true
+draft: false
 layout: "list"
 showtoc: true
 ---
