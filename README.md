@@ -48,7 +48,7 @@ graph TD
     B -->|触发 push 钩子| C{GitHub Actions}
     C -->|运行 BlogOps 管线| D[Python 脚本读取草稿]
     D -->|发起请求| E[DeepSeek-v4-flash]
-    E -->|AI 智能润色| F["AI 智能处理与排版优化：<br>1. 智能校错与中英文空格规范<br>2. 剔除 TODO 标记并重新润色<br>3. 自动生成规范 Front-Matter/摘要/Slug"]
+    E -->|AI 智能润色| F["AI 智能处理与排版：      <br>• 格式规范 (中英文空格)      <br>• 智能润色 (清除 TODO)      <br>• 自动元数据 (YAML/Slug)      "]
     F -->|Python 解析并分类路由| G{自动物理分流归档}
     G -->|算法分类 + 保留数字前缀| H[content/posts/series-acm/04-dijkstra-algorithm-detailed/]
     G -->|安全分类| I[content/posts/security/slug/]
