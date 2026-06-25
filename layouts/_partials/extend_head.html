@@ -2,7 +2,7 @@
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
   script-src 'self' 'sha256-9+XWnYTFVgY682OAV67M8L4Q1RlYMmLD3EiWQxZdlOg=' https://giscus.app;
-  style-src 'self';
+  style-src 'self' https://giscus.app;
   font-src 'self';
   frame-src https://giscus.app;
   img-src 'self' data: https:;
@@ -17,8 +17,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/noto-sans-sc-v26-chinese-simplified-regular.woff2">
 
 {{- $style := resources.Get "css/spa.css" | minify | fingerprint }}
-<link rel="preload" as="style" href="{{ $style.RelPermalink }}">
-<link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}">
+<link rel="preload" as="style" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin>
+<link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin>
 
 {{- /* SEO: supplementary OG/Twitter tags (PaperMod provides core tags) */ -}}
 {{- $ogImage := "https://blog.codequest.com.cn/og-image.png" }}
