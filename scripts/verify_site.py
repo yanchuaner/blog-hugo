@@ -12,7 +12,7 @@ if hasattr(sys.stderr, 'reconfigure'):
     sys.stderr.reconfigure(encoding='utf-8')
 
 
-PUBLIC_DIR = Path("c:/Users/lucky dog/Desktop/web_projects/blog-hugo/public")
+PUBLIC_DIR = Path(__file__).resolve().parent.parent / "public"
 
 def check_html_files():
     print("--- Starting HTML Quality Verification ---")
