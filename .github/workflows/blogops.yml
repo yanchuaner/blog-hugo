@@ -10,6 +10,9 @@ on:
     paths:
       - "content/raw/**"
 
+permissions:
+  contents: write
+
 jobs:
   quality-check:
     runs-on: ubuntu-latest
