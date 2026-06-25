@@ -184,12 +184,14 @@ def quality_check(article_path):
 
 
 def new_article(title, category):
-    """生成空白文章模板"""
+    """生成空白文章模板草稿"""
     config = load_config()
     today = datetime.now().strftime("%Y-%m-%d")
     slug = to_slug(title)
-    post_dir = ROOT / "content" / "posts" / slug
-    post_dir.mkdir(parents=True, exist_ok=True)
+    
+    # 草稿统一放置在 content/raw/ 目录下
+    raw_dir = ROOT / "content" / "raw"
+    raw_dir.mkdir(parents=True, exist_ok=True)
 
     tags = config["taxonomy"]["tags_by_category"].get(category, [])[:3]
     tags_str = ", ".join(f'"{t}"' for t in tags)
@@ -218,13 +220,13 @@ comments: true
 
 待补充
 """
-    index_path = post_dir / "index.md"
-    index_path.write_text(template, encoding="utf-8")
-    print(f"✅ 已创建：{index_path}")
+    draft_path = raw_dir / f"{slug}.md"
+    draft_path.write_text(template, encoding="utf-8")
+    print(f"✅ 已创建草稿模板：{draft_path}")
     print(f"   Slug: {slug}")
     print(f"   分类: {category}")
-    print(f"   标签: {', '.join(tags)}")
-    return str(index_path)
+    print(f"   提示：可在该文件中撰写内容，完成后通过 git push 或运行 scripts/blogops.py process 发布。")
+    return str(draft_path)
 
 
 def show_status():
@@ -379,8 +381,30 @@ def process_article(file_path):
     # 清除正文尾部的 <slug> 标签
     cleaned_content = re.sub(r"<slug>.*?</slug>", "", ai_content, flags=re.DOTALL).strip()
 
-    # 确定输出发布路径
-    posts_dir = ROOT / "content" / "posts" / slug
+    # 确定输出发布路径（Option B：按文件夹分流归档）
+    prefix_match = re.match(r"^(\d+-)", path.name)
+    prefix = prefix_match.group(1) if prefix_match else ""
+
+    fm = extract_frontmatter(cleaned_content)
+    categories = fm.get("categories", [])
+    
+    category_folder = ""
+    for cat in categories:
+        if cat in ["算法", "ACM", "ACM算法", "算法竞赛"]:
+            category_folder = "series-acm"
+            break
+        elif cat in ["安全", "安全相关", "信息安全", "Security"]:
+            category_folder = "security"
+            break
+        elif cat in ["项目", "项目分析", "日常分析", "Project", "Analysis"]:
+            category_folder = "project-analysis"
+            break
+
+    if category_folder:
+        posts_dir = ROOT / "content" / "posts" / category_folder / f"{prefix}{slug}"
+    else:
+        posts_dir = ROOT / "content" / "posts" / f"{prefix}{slug}"
+
     posts_dir.mkdir(parents=True, exist_ok=True)
     output_path = posts_dir / "index.md"
 
