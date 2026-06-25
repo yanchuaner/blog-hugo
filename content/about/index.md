@@ -2,36 +2,74 @@
 title: "关于"
 date: 2026-03-14
 draft: false
-showtoc: true
+showtoc: false
 ---
 
-## 个人简介
+我是 **Eon**，华南理工大学计算机科学与技术专业学生（2025级），ACM 集训队成员。
 
-我是 Eon，华南理工大学计算机科学与技术专业学生（2025级）。
+我信奉**「项目驱动、实战检验、持续迭代」**——以代码解决实际问题，致力于成为优秀的系统级与算法研发工程师。
 
-ACM 集训队成员，专注于算法竞赛与底层系统工程。
+---
 
-信奉「项目驱动、实战检验、持续迭代」——以代码解决实际问题，致力于成为优秀的系统级与算法研发工程师。
+### 🏫 教育与成长
 
-## 目标与路线
+<div class="spa-about-grid" style="margin-top: 1.25rem; margin-bottom: 2rem;">
+  <div class="spa-about-card">
+    <h3>教育背景</h3>
+    <p style="font-weight: 600; margin-bottom: 0.25rem; font-size: 1rem;">华南理工大学</p>
+    <p style="font-size: 0.88rem; color: var(--spa-text-secondary); margin-bottom: 0.5rem;">计算机科学与技术 · 本科 (2025 - 2029)</p>
+    <p style="font-size: 0.85rem; color: var(--spa-text-muted); line-height: 1.6;">大一在读。系统学习算法设计、体系结构，主攻 C++ 系统并发与硬件描述语言 (Verilog)。</p>
+  </div>
+  
+  <div class="spa-about-card">
+    <h3>目标与路线</h3>
+    <p style="font-weight: 600; margin-bottom: 0.25rem; font-size: 1rem;">当前研究重点</p>
+    <ul style="font-size: 0.88rem; color: var(--spa-text-secondary); margin: 0; padding-left: 1.2rem; line-height: 1.6;">
+      <li>深耕数据结构与高级算法设计（线段树、图论、DP）</li>
+      <li>加强 C++ 硬件协同与底层系统高并发实践</li>
+      <li>推进 LoongArch 架构 CPU 设计与 FPGA 仿真开发</li>
+    </ul>
+  </div>
+</div>
 
-- **目标**：在算法竞赛中取得优异成绩；掌握高并发与底层系统研发能力，探索高性能计算与硬件协同设计。
-- **当前重点**：深耕数据结构与高级算法设计，加强 C++ 系统底层并发及硬件描述语言 (Verilog) 编码实践。
+---
 
-## 教育经历
+### ⚡ 技能矩阵 (Skills)
 
-- **华南理工大学** · 计算机科学与技术 · 本科 (2025 - 2029)
-
-## 技能矩阵
-
-### 算法竞赛 (Algorithms)
-- **重点**：动态规划、图论算法、高级数据结构（线段树/树状数组）、字符串算法（KMP）。
-- **平台**：Codeforces, 力扣 (LeetCode)。
-
-### 系统工程 (Systems)
-- **语言**：`C++` `C` `Python` `Verilog`
-- **系统/工具**：`Linux` `Git` `CMake` `GCC/GDB`
-
-### 硬件底层 (Hardware)
-- **硬件**：FPGA 开发 (Vivado 综合与仿真)
-- **体系结构**：CPU 设计 (LoongArch)
+<div class="spa-skills-grid" style="margin-top: 1.25rem; margin-bottom: 2rem;">
+  <div class="spa-skill-category">
+    <div class="spa-skill-cat-name">📐 算法竞赛</div>
+    <div class="spa-skill-tags">
+      <span class="spa-skill-tag">动态规划</span>
+      <span class="spa-skill-tag">图论算法</span>
+      <span class="spa-skill-tag">高级数据结构</span>
+      <span class="spa-skill-tag">字符串 (KMP)</span>
+      <span class="spa-skill-tag">ACM 集训</span>
+      <span class="spa-skill-tag">Codeforces</span>
+    </div>
+  </div>
+  
+  <div class="spa-skill-category">
+    <div class="spa-skill-cat-name">⚙️ 系统开发</div>
+    <div class="spa-skill-tags">
+      <span class="spa-skill-tag">C++</span>
+      <span class="spa-skill-tag">C</span>
+      <span class="spa-skill-tag">Python</span>
+      <span class="spa-skill-tag">Linux</span>
+      <span class="spa-skill-tag">CMake</span>
+      <span class="spa-skill-tag">Git</span>
+      <span class="spa-skill-tag">GCC/GDB</span>
+    </div>
+  </div>
+  
+  <div class="spa-skill-category">
+    <div class="spa-skill-cat-name">🔌 硬件底层</div>
+    <div class="spa-skill-tags">
+      <span class="spa-skill-tag">Verilog</span>
+      <span class="spa-skill-tag">FPGA 开发</span>
+      <span class="spa-skill-tag">Vivado 仿真</span>
+      <span class="spa-skill-tag">LoongArch CPU</span>
+      <span class="spa-skill-tag">体系结构</span>
+    </div>
+  </div>
+</div>

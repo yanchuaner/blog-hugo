@@ -1,11 +1,12 @@
 {{- /* Projects Section Listing — reads from data/projects.yml */ -}}
 {{- define "main" }}
-<header class="page-header">
-  <h1>项目</h1>
+<div class="spa-section-header" style="margin-top: 2rem;">
+  <span class="section-label">Projects</span>
+  <h2>{{ .Title }}</h2>
   {{- with .Description }}
-  <div class="post-description">{{ . | markdownify }}</div>
+  <p class="spa-section-desc" style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--spa-text-secondary); line-height: 1.5;">{{ . | markdownify }}</p>
   {{- end }}
-</header>
+</div>
 
 <div class="post-content md-content">
   {{ .Content }}

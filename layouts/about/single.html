@@ -1,0 +1,17 @@
+{{- define "main" }}
+
+<article class="post-single spa-about-page">
+  <div class="spa-section-header" style="margin-top: 2rem;">
+    <span class="section-label">Resume / About</span>
+    <h2>{{ .Title }}</h2>
+  </div>
+
+  {{- if .Content }}
+  <div class="post-content md-content">
+    {{- if not (.Param "disableAnchoredHeadings") }}
+    {{- partial "anchored_headings.html" .Content -}}
+    {{- else }}{{ .Content }}{{ end }}
+  </div>
+  {{- end }}
+</article>
+{{- end }}
