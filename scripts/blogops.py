@@ -16,8 +16,17 @@ import re
 import sys
 import yaml
 import subprocess
+import json
+import os
+import urllib.request
 from pathlib import Path
 from datetime import datetime
+
+# Force stdout/stderr to use UTF-8 encoding to prevent UnicodeEncodeError / garbled output on Windows console
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
+if hasattr(sys.stderr, 'reconfigure'):
+    sys.stderr.reconfigure(encoding='utf-8')
 
 ROOT = Path(__file__).parent.parent
 CONFIG_PATH = ROOT / "scripts" / "pipeline.yaml"
@@ -281,6 +290,111 @@ def build_and_verify():
         return False
 
 
+def process_article(file_path):
+    """调用 DeepSeek API 润色并发布文章草稿"""
+    api_key = os.environ.get("DEEPSEEK_API_KEY")
+    if not api_key:
+        print("❌ 错误：未设置 DEEPSEEK_API_KEY 环境变量！")
+        return False
+
+    path = Path(file_path)
+    if not path.exists():
+        print(f"❌ 错误：文件不存在: {file_path}")
+        return False
+
+    print(f"📖 正在读取草稿：{path}")
+    raw_content = path.read_text(encoding="utf-8")
+
+    # 系统提示词，用于指导 AI 润色与生成规范
+    system_prompt = (
+        "You are a professional blog editor and content optimization assistant.\n"
+        "Your task is to polish the provided raw article draft and output the final publication-ready markdown. You must follow these requirements:\n"
+        "1. Proofread and polish the Chinese text to make it fluent, professional, and clear.\n"
+        "2. Ensure proper spacing between Chinese and English/numeric characters (e.g., 'C++' instead of 'C++' when connected to Chinese like '学习C++' -> '学习 C++').\n"
+        "3. Retain all code blocks, tables, and lists. Fix formatting if needed.\n"
+        "4. Do NOT leave any TODO, FIXME, or draft placeholders. Expand or clean them up.\n"
+        "5. Output a structured YAML front matter at the top of the markdown, containing exactly the following keys:\n"
+        "   - title: A polished, engaging title (under 60 characters)\n"
+        "   - summary: A concise summary of the article (under 160 characters)\n"
+        "   - date: Current date in YYYY-MM-DD format\n"
+        "   - lastmod: Current date in YYYY-MM-DD format\n"
+        "   - draft: false\n"
+        "   - showtoc: true\n"
+        "   - categories: A list containing 1 or 2 appropriate categories (e.g. ['算法竞赛', '系统开发', '硬件设计'])\n"
+        "   - tags: A list containing 2 to 4 appropriate tags (e.g., ['C++', 'Linux', 'FPGA'])\n"
+        "   - comments: true\n"
+        "6. Also, output a special XML tag at the very end of your response: <slug>pinyin-slug-here</slug> where pinyin-slug-here is a clean, lowercase, hyphen-separated pinyin representation of the article's title (e.g., <slug>hugo-blog-optimization</slug> or <slug>acm-graph-algorithms</slug>).\n\n"
+        "Output only the final markdown document containing the front matter, the body, and the <slug>...</slug> tag at the end."
+    )
+
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": raw_content}
+    ]
+
+    payload = {
+        "model": "deepseek-chat",
+        "messages": messages,
+        "temperature": 0.2
+    }
+
+    url = "https://api.deepseek.com/v1/chat/completions"
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+
+    print("🤖 正在调用 DeepSeek API 进行智能润色...")
+    req = urllib.request.Request(
+        url,
+        data=json.dumps(payload).encode("utf-8"),
+        headers=headers,
+        method="POST"
+    )
+
+    try:
+        with urllib.request.urlopen(req, timeout=120) as response:
+            res_data = json.loads(response.read().decode("utf-8"))
+            ai_content = res_data["choices"][0]["message"]["content"].strip()
+    except Exception as e:
+        print(f"❌ 调用 API 失败: {e}")
+        return False
+
+    # 提取 Pinyin Slug
+    slug_match = re.search(r"<slug>(.*?)</slug>", ai_content, re.DOTALL)
+    if not slug_match:
+        print("❌ 错误：AI 响应中未包含有效的 <slug>...</slug> 标签！")
+        print("AI 原始响应片段：")
+        print(ai_content[:500] + "...")
+        return False
+
+    slug = slug_match.group(1).strip().lower()
+    # 格式化 Slug
+    slug = re.sub(r"[^\w\s-]", "", slug)
+    slug = re.sub(r"\s+", "-", slug.strip())
+    slug = slug.strip("-")
+    if not slug:
+        slug = f"post-{datetime.now().strftime('%Y%m%d')}"
+
+    # 清除正文尾部的 <slug> 标签
+    cleaned_content = re.sub(r"<slug>.*?</slug>", "", ai_content, flags=re.DOTALL).strip()
+
+    # 确定输出发布路径
+    posts_dir = ROOT / "content" / "posts" / slug
+    posts_dir.mkdir(parents=True, exist_ok=True)
+    output_path = posts_dir / "index.md"
+
+    print(f"✍️ 正在写入正式发布文章：{output_path}")
+    output_path.write_text(cleaned_content, encoding="utf-8")
+
+    # 删除 content/raw 中的草稿文件
+    print(f"🗑️ 正在删除草稿：{path}")
+    path.unlink()
+
+    print(f"🎉 文章已成功发布，Slug 为 '{slug}'！")
+    return True
+
+
 def main():
     if len(sys.argv) < 2:
         print("BlogOps v1.0")
@@ -291,6 +405,7 @@ def main():
         print("  python scripts/blogops.py slug <标题>       # 生成 slug")
         print("  python scripts/blogops.py status            # 草稿状态")
         print("  python scripts/blogops.py build             # 验证构建")
+        print("  python scripts/blogops.py process [路径]    # 自动润色并发布草稿")
         return
 
     cmd = sys.argv[1]
@@ -318,6 +433,24 @@ def main():
 
     elif cmd == "build":
         build_and_verify()
+
+    elif cmd == "process":
+        if len(sys.argv) >= 3:
+            process_article(sys.argv[2])
+        else:
+            print("🔍 未指定具体文章，正在扫描 content/raw/ 目录以批量处理草稿...")
+            raw_dir = ROOT / "content" / "raw"
+            draft_files = [f for f in raw_dir.rglob("*.md") if f.is_file() and not f.name.startswith(".")]
+            if not draft_files:
+                print("  未在 content/raw/ 下找到需要处理的文章草稿。")
+                return
+            
+            print(f"  找到 {len(draft_files)} 篇草稿待处理。")
+            success_count = 0
+            for f in draft_files:
+                if process_article(str(f)):
+                    success_count += 1
+            print(f"📊 批量处理完成，共 {success_count}/{len(draft_files)} 篇发布成功。")
 
     else:
         print(f"未知命令：{cmd}")

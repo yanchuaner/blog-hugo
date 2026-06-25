@@ -3,6 +3,14 @@ import re
 import urllib.request
 import ssl
 import yaml
+import sys
+
+# Force stdout/stderr to use UTF-8 encoding to prevent UnicodeEncodeError on Windows console
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
+if hasattr(sys.stderr, 'reconfigure'):
+    sys.stderr.reconfigure(encoding='utf-8')
+
 
 PUBLIC_DIR = Path("c:/Users/lucky dog/Desktop/web_projects/blog-hugo/public")
 
@@ -17,7 +25,7 @@ def check_html_files():
     index_content = index_html_path.read_text(encoding="utf-8")
     
     # 1. Check Favicon links
-    print("\n[1/6] Checking Favicon links...")
+    print("\n[1/7] Checking Favicon links...")
     favicons = ["favicon.ico", "favicon-16x16.png", "favicon-32x32.png", "apple-touch-icon.png", "safari-pinned-tab.svg"]
     favicon_ok = True
     for fav in favicons:
@@ -28,10 +36,10 @@ def check_html_files():
             favicon_ok = False
             
     # 2. Check CSP header
-    print("\n[2/6] Checking Content-Security-Policy (CSP) headers...")
-    csp_match = re.search(r'http-equiv=?["\']?Content-Security-Policy["\']?\s+content=["\']([^"\']+)["\']', index_content, re.IGNORECASE)
+    print("\n[2/7] Checking Content-Security-Policy (CSP) headers...")
+    csp_match = re.search(r'http-equiv=["\']?Content-Security-Policy["\']?\s+content=(["\'])(.*?)\1', index_content, re.IGNORECASE | re.DOTALL)
     if csp_match:
-        csp_content = csp_match.group(1)
+        csp_content = csp_match.group(2)
         print("  Found CSP header content:")
         print(f"    {csp_content.strip()}")
         
@@ -59,7 +67,7 @@ def check_html_files():
         print("  ❌ CSP header not found in index.html!")
 
     # 3. Check target="_blank" safety
-    print("\n[3/6] Checking target=\"_blank\" safety...")
+    print("\n[3/7] Checking target=\"_blank\" safety...")
     unsafe_links = 0
     total_blank_links = 0
     
@@ -79,7 +87,7 @@ def check_html_files():
         print(f"  ❌ Found {unsafe_links} unsafe target=\"_blank\" links!")
 
     # 4. Check inline styles in Projects list
-    print("\n[4/6] Checking inline styles in Projects page...")
+    print("\n[4/7] Checking inline styles in Projects page...")
     projects_html_path = PUBLIC_DIR / "projects" / "index.html"
     if projects_html_path.exists():
         projects_content = projects_html_path.read_text(encoding="utf-8")
@@ -92,7 +100,7 @@ def check_html_files():
         print("  ⚠️ projects/index.html not generated or does not exist.")
 
     # 5. Check local font files
-    print("\n[5/6] Checking local font files in public/fonts/...")
+    print("\n[5/7] Checking local font files in public/fonts/...")
     fonts_dir = PUBLIC_DIR / "fonts"
     fonts_css_path = PUBLIC_DIR.parent / "assets" / "css" / "extended" / "fonts.css"
     
@@ -124,7 +132,7 @@ def check_html_files():
                 print("  ❌ Some local fonts are missing or empty in public/fonts/!")
 
     # 6. Check friends links (optional/warning)
-    print("\n[6/6] Checking friends links availability (optional warnings)...")
+    print("\n[6/7] Checking friends links availability (optional warnings)...")
     friends_yml_path = PUBLIC_DIR.parent / "data" / "friends.yml"
     if friends_yml_path.exists():
         try:
@@ -152,6 +160,37 @@ def check_html_files():
             print(f"  ⚠️ Error reading or checking friends: {e}")
     else:
         print("  ⚠️ friends.yml not found in data/.")
+
+    # 7. Check image file sizes and formats
+    print("\n[7/7] Checking image file sizes and formats in public/...")
+    images_ok = True
+    image_count = 0
+    size_threshold = 300 * 1024  # 300 KB
+    
+    image_extensions = (".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg")
+    for img_file in PUBLIC_DIR.rglob("*"):
+        if img_file.is_file() and img_file.suffix.lower() in image_extensions:
+            image_count += 1
+            file_size = img_file.stat().st_size
+            rel_path = img_file.relative_to(PUBLIC_DIR)
+            
+            # Check file size
+            if file_size > size_threshold:
+                print(f"  ❌ Large image found: {rel_path} ({file_size / 1024:.1f} KB) - Exceeds 300 KB limit!")
+                images_ok = False
+            else:
+                print(f"  ✅ Image: {rel_path} ({file_size / 1024:.1f} KB)")
+                
+            # Warn if large file is not webp/svg
+            if file_size > 100 * 1024 and img_file.suffix.lower() not in (".webp", ".svg"):
+                print(f"  ⚠️ Warning: {rel_path} is relatively large and not WebP. Consider converting to WebP for optimization.")
+                
+    if image_count == 0:
+        print("  No images found in public/.")
+    elif images_ok:
+        print(f"  ✅ All {image_count} images are optimized and within size limits!")
+    else:
+        print(f"  ❌ Verification failed: Found large unoptimized images.")
 
     print("\n--- Verification Completed ---")
 
