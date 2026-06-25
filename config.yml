@@ -1,5 +1,5 @@
 baseURL: 'https://blog.codequest.com.cn'
-title: '黄湘林 | 算法 · 系统 · 硬件'
+title: 'Eon | 算法 · 系统 · 硬件'
 pagination:
   pagerSize: 5
 theme: PaperMod
@@ -24,11 +24,11 @@ minify:
 
 params:
   env: production
-  title: '黄湘林 | 算法 · 系统 · 硬件'
+  title: 'Eon | 算法 · 系统 · 硬件'
   description: >
     华南理工大学计算机专业学生，ACM 集训队成员。专注于算法竞赛、底层系统开发与硬件底层设计——项目驱动、实战检验、持续迭代。
   keywords: ['ACM', '算法竞赛', '数据结构', 'C++', 'Linux', 'Verilog', 'FPGA', '计算机体系结构']
-  author: '黄湘林'
+  author: 'Eon'
   DateFormat: '2006-01-02'
   defaultTheme: auto
   disableThemeToggle: false
@@ -54,7 +54,7 @@ params:
     apple_touch_icon: '/apple-touch-icon.png'
     safari_pinned_tab: '/safari-pinned-tab.svg'
   label:
-    text: '黄湘林'
+    text: 'Eon'
     icon: ''
     iconHeight: 35
   profileMode:

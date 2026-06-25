@@ -1,5 +1,5 @@
 // ===========================================
-// 黄湘林 Blog v2.0 — Performance Optimized
+// Eon Blog v2.0 — Performance Optimized
 // ===========================================
 
 // --- Particle background with cached dark state ---

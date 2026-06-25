@@ -60,7 +60,7 @@
   "dateModified": {{ .Lastmod.Format "2006-01-02T15:04:05-07:00" | jsonify }},
   "author": {
     "@type": "Person",
-    "name": {{ (site.Params.author | default "黄湘林") | jsonify }},
+    "name": {{ (site.Params.author | default "Eon") | jsonify }},
     "url": {{ site.BaseURL | jsonify }}
   },
   "publisher": {
@@ -85,7 +85,7 @@
 {
   "@context": "https://schema.org",
   "@type": "Person",
-  "name": {{ (site.Params.author | default "黄湘林") | jsonify }},
+  "name": {{ (site.Params.author | default "Eon") | jsonify }},
   "url": {{ site.BaseURL | jsonify }},
   "description": {{ (site.Params.description | default "华南理工大学计算机专业学生，ACM 集训队成员。") | plainify | jsonify }},
   "sameAs": [
@@ -107,7 +107,7 @@
   "description": {{ (site.Params.description | default "华南理工大学计算机专业学生，ACM 集训队成员。") | plainify | jsonify }},
   "author": {
     "@type": "Person",
-    "name": {{ (site.Params.author | default "黄湘林") | jsonify }}
+    "name": {{ (site.Params.author | default "Eon") | jsonify }}
   }
 }
 </script>
