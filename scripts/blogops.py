@@ -335,7 +335,7 @@ def process_article(file_path):
     ]
 
     payload = {
-        "model": "deepseek-chat",
+        "model": "deepseek-v4-flash",
         "messages": messages,
         "temperature": 0.2
     }
