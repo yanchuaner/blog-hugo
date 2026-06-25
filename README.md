@@ -46,9 +46,9 @@
 graph TD
     A[本地撰写 content/raw/04-dijkstra.md] -->|git push| B(GitHub 仓库)
     B -->|触发 push 钩子| C{GitHub Actions}
-    C -->|Run BlogOps Pipeline| D[Python 脚本扫描并读取草稿]
-    D -->|调用 API| E[DeepSeek-v4-flash]
-    E -->|1. 智能校错/中英文空格规范<br>2. 剔除 TODO 标记并重新润色<br>3. 自动生成规范 Front-Matter/摘要/Slug| F[AI 返回优化后 Markdown]
+    C -->|运行 BlogOps 管线| D[Python 脚本读取草稿]
+    D -->|发起请求| E[DeepSeek-v4-flash]
+    E -->|AI 智能润色| F["AI 智能处理与排版优化：<br>1. 智能校错与中英文空格规范<br>2. 剔除 TODO 标记并重新润色<br>3. 自动生成规范 Front-Matter/摘要/Slug"]
     F -->|Python 解析并分类路由| G{自动物理分流归档}
     G -->|算法分类 + 保留数字前缀| H[content/posts/series-acm/04-dijkstra-algorithm-detailed/]
     G -->|安全分类| I[content/posts/security/slug/]
